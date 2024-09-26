@@ -4,9 +4,4 @@
 format: jb-book
 root: introduction
 chapters:
-- file: setup
-- file: ancillaries
-- file: running
-- file: outputs
-- file: evaluating
-- file: further-considerations
+- file: overview
