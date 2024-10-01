@@ -6,8 +6,8 @@ The model is so named (i.e. "Unified") because it contains a single set of code 
 
 It's modular nature allows its use across a vast array of applications, e.g.
 - detailed atmospheric chemistry and cloud experiments
-- cean-atmosphere experiments
-- coupled fire-weather experiements
+- ocean-atmosphere experiments
+- coupled fire-weather experiments
 - operational Numerical Weather Prediction forecasts (NWP)
 
 A brief overview of the UM is available here : https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model

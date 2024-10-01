@@ -1,0 +1,17 @@
+# Understanding the UM
+
+The UM can operate and resolved length scales from hundreds of kilometres for climate projections, to tens of metres for high-resolution weather simulations. Atmospheric processes across a wide range of length-scales and  depending on the grid resolution, they will not be properly resolved in the UM. Such sub-grid-scale processes are *parametrized* (i.e. represented by a separate physical model which uses the available grid-scale inputs). 
+
+The following sections describe the physical processes which are represented in the model.
+
+- **Cloud schemes**: choices of the older diagnostic scheme and newer prognostics cloud scheme (PC2) which includes history effects (i.e convection may have produced cloud at a different place at an earlier time)
+- **Radiation scheme**: which incorporates various gases, aerosols, cloud droplets and ice crystals.
+- **Boundary layer** :  These schemes involves calculating eddy diffusivities to represent unresolved turbulence. Both a diagnostic scheme, and prognostic schemes using higher order moments of turbulence (including turbulent kinetic energy) are available, the latter requires short timesteps and high vertical resolution and are recommended only for research and regimes of rapid temporal or spatial variation in surface forcing, i.e. the kinds of problems that 21st Century Weather will be investigating, such as urban heat effects on the diurnal cycle, wildfire, extreme precipitation and flooding events etc.
+- **Precipitation** : Uses a large-scale mixed-phase scheme designed to work with PC2 cloud, and a cloud-aerosol interacting microphysics scheme (CASIM). The latter is a multi-moment scheme which includes radar reflectivity as a prognostic variable.
+- **Convection** : It's recommended to use the 6A version as 5A will be obsolete. Co-Morph is new scheme currently being developed between the UK Met Office and the Bureau, see [here](http://www.bom.gov.au/research/workshop/2021/talks/D2S3_5_AlisonStirling.pdf) and [here](https://rmets.onlinelibrary.wiley.com/doi/10.1002/qj.4781). 
+- **Land surface fluxes** are computed using [JULES](https://www.metoffice.gov.uk/research/approach/collaboration/jwcrp/jules).
+- **Gravity Wave Drag** is represented using two parameterizations : Gravity Wave Drag and flow-blocking drag due to sub-scale orogography and drag/acceleration due to all other (i.e. non-orographic) sources of gravity waves. How the drag is partitioned into these two components is depending on the low-level Froude number.
+- **River routing** : This scheme maps total run-off along prescribed channels to the sea. The Global 1A scheme (TRIP) is fixed on a 1 degree grid. The regional 2A scheme (G2G) uses flow paths generated offline using a digital terrain model (which will be required for high resolution 21stCentury work). The demarcation between which grid-squares are 'river' or 'non-river' is determined by applying a threshold area to an ancilliary file which gives an estimate of land area draining to every pixel.
+- **Chemistry and aerosol** : Mutiple schemes are available, some are only applicable for modeling the troposphere or stratosphere. GLOMAP allows sophisticated treatment of aerosol evolution for specific research questions (e.g. black carbon, sea-salt, dust, sulphate)
+- **Nudging** : Variables that can be 'Nudged' (i.e. using Newton Relaxation) are U, V and theta (potential temperature). This is a simple form of data assimilation. It is used to align a climate model to the actual meteorology.
+
