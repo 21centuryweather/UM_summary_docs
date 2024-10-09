@@ -2,9 +2,9 @@
 # Learn more at https://jupyterbook.org/customize/config.html
 
 title: Unified Model Summary Documentation
-author: Paul Gregory
+author: 21st Century Weather
 logo: logo.png
-copyright: "2024"
+#copyright: "2024"
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html

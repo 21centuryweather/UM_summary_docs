@@ -33,7 +33,7 @@ Further information regarding how halos are used between each processor can be f
 
 (These notes will summarise the relevant sections of that document in due course)
 
-## User-definable 2D decomposition## 
+## User-definable 2D decomposition ## 
 
 If you are generating a new subdomain, or creating an ACCESS suite to run at a new resolution, it's likely that you will have to pay attention to some of these issues.
 
@@ -47,7 +47,7 @@ If you are generating a new subdomain, or creating an ACCESS suite to run at a n
 - Additionally, a shared memory parallelisation is available based on OpenMP compiler directive technology. This works underneath the parallel decomposition layer with each processor being able to utilise a number of threads to share the work available. This is done by subdivision of independent iterations of the most costly loops. 
 - Running the UM on a parallel computer requires attention to the following inputs:
     - The ”job submission” method and resource ”directives” required. This is currently set up in the Rose suite.rc files. 
-    - The number of processors in the North-South / East-West directions. Some experimentation may be re- quired to find the arrangement giving optimum performance. It is typical (although not universally the case) for a decomposition with smaller numbers of processors in the East-West direction than in the North-South direction to give best performance. The atmosphere model is restricted in the possible decompositions in that (for efficient communications over the poles) the number of processors in the East-West direction has to be either one, or an even number. 
+    - The number of processors in the North-South / East-West directions. Some experimentation may be required to find the arrangement giving optimum performance. It is typical (although not universally the case) for a decomposition with smaller numbers of processors in the East-West direction than in the North-South direction to give best performance. The atmosphere model is restricted in the possible decompositions in that (for efficient communications over the poles) the number of processors in the East-West direction has to be either one, or an even number. 
     - The number of OpenMP threads. Most model configurations work best with 1 or 2 threads currently, but this will depend on your computer architecture and more may be useful in some circumstances. 
 - The following tweaks can improve runtime:
     - Disabling timer facility.
