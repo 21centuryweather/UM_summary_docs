@@ -6,6 +6,12 @@ It you want to make UM code changes, the user is advised to complete the followi
 
 There are many sources of information regarding [`rose`](https://www.metoffice.gov.uk/research/approach/modelling-systems/rose) and `cylc` - the scheduling software used to execute the UM to simulate the atmosphere. `Cylc` has an active [discourse group] (https://cylc.discourse.group).  The homepage for `Rose` documentation is [here](https://metomi.github.io/rose/doc/html/index.html) which contains a short tutorial.
 
+A good place to start is to read through the material available here:
+
+https://code.metoffice.gov.uk/doc/um/latest/um-training/getting-started.html
+
+We will run through the UM tutorial in the next section.
+
 As mentioned before, the UM is a very complex piece of software whose operation is governed by a vast array of plain-text (ASCII) files including `namelist` files which provide information to every component of the UM. The `rose/cylc` framework provides a graphical-user interface (GUI) and a simple set of master control files which (hopefully) shield the user from the complex management tasks of the entire UM configuration, and allow them to focus on their particular field of interest.
 
 ## Compilation 
@@ -37,7 +43,7 @@ Further information regarding how halos are used between each processor can be f
 
 If you are generating a new subdomain, or creating an ACCESS suite to run at a new resolution, it's likely that you will have to pay attention to some of these issues.
 
-- The processors are numbered from the bottom left corner, along the rows. For example for a 4 x 2 decomposition the `pe` numbers would be:
+- The processors are numbered from the bottom left corner, along the rows. For example for a 4 x 2 decomposition the `pe` (processing-element) numbers would be:
 
                 4 5 6 7 
 
@@ -70,7 +76,7 @@ Below is section describing the main `namelists` used to control the UM executab
     - SIZES — sizes defining model domain, number of levels etc. 
     - STASHC — control of STASH diagnostic output system
 - For 21stCentury users, the most important sections are the RECONA (reconfiguration control) and STASHC (controlling user outputs). As mentioned before, every time you run an experiment which moves from a lower resolution domain into a higher one, you will be using RECONA.
-- The top level script that runs the Unified Model atmos is um-atmos and may be found at, for example: `$UMDIR/cylc-run/vn9.1 prebuilds/share/[configuration]/build-atmos/bin/um-atmos` or http://fcm2/projects/UM/browser/UM/trunk/bin 
+- The top level script that runs the Unified Model atmos is um-atmos and may be found at, for example: `$UMDIR/cylc-run/vn9.1_prebuilds/share/[configuration]/build-atmos/bin/um-atmos` or http://fcm2/projects/UM/browser/UM/trunk/bin 
 - A dedicated IO server can be specified with namelist `io_control`
 - `UM_SHELL` is the Top Level routine. The history file contains only control variables required for restarts. 
 - Running `NRUN` (normal run) as `CRUN` (continuation run) - required to support long-running climate suites where `CRUN` data isn't otherwise available as its scattered across many files.
