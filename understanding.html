@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Introduction &#8212; Unified Model Summary Documentation</title>
+    <title>Understanding the UM &#8212; Unified Model Summary Documentation</title>
   
   
   
@@ -62,10 +62,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'introduction';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'understanding';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Overview" href="overview.html" />
+    <link rel="next" title="Code management and structure" href="code.html" />
+    <link rel="prev" title="Overview" href="overview.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -141,7 +142,7 @@ const thebe_selector_output = ".output, .cell_output"
 
   
 
-<a class="navbar-brand logo" href="#">
+<a class="navbar-brand logo" href="introduction.html">
   
   
   
@@ -155,15 +156,15 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1 current active">
-                <a class="reference internal" href="#">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introduction.html">
                     Introduction
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="understanding.html">Understanding the UM</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Understanding the UM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="code.html">Code management and structure</a></li>
 </ul>
 
@@ -236,7 +237,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/21centuryweather/UM_summary_docs/issues/new?title=Issue%20on%20page%20%2Fintroduction.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/21centuryweather/UM_summary_docs/issues/new?title=Issue%20on%20page%20%2Funderstanding.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -266,7 +267,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/introduction.md" target="_blank"
+      <li><a href="_sources/understanding.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -348,7 +349,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Introduction</h1>
+    <h1>Understanding the UM</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -362,32 +363,22 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h1>
-<p>The ACCESS modeling suite is reliant on the UK Met Office’s <strong>Unified Model</strong> (UM) for atmospheric simulations.</p>
-<p>This documentation summarises the UM Documentation Papers that are available (behind the Met Office Science Repository Service Paywall) at <a class="reference external" href="https://code.metoffice.gov.uk/doc/um/latest/umdp.html">https://code.metoffice.gov.uk/doc/um/latest/umdp.html</a></p>
-<p>It assumes the reader has some familiarity with:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="understanding-the-um">
+<h1>Understanding the UM<a class="headerlink" href="#understanding-the-um" title="Permalink to this heading">#</a></h1>
+<p>The UM can operate and resolved length scales from hundreds of kilometres for climate projections, to tens of metres for high-resolution weather simulations. Atmospheric processes across a wide range of length-scales and  depending on the grid resolution, they will not be properly resolved in the UM. Such sub-grid-scale processes are <em>parametrized</em> (i.e. represented by a separate physical model which uses the available grid-scale inputs).</p>
+<p>The following sections describe the physical processes which are represented in the model.</p>
 <ul class="simple">
-<li><p>The equations of motion that underpin dynamical meteorology</p></li>
-<li><p>The concepts that underpin numerical solutions of these equations (e.g. domain discretization, grid resolution, boundary conditions)</p></li>
-<li><p>The basics of the Linux operating system and how to use a command-line-interface (CLI).</p></li>
-<li><p>How resources for computational tasks are allocated on the ANU supercomputer (Gadi) according to projects, and what the PBS job scheduler is.</p></li>
+<li><p><strong>Cloud schemes</strong>: choices of the older diagnostic scheme and newer prognostics cloud scheme (PC2) which includes history effects (i.e convection may have produced cloud at a different place at an earlier time)</p></li>
+<li><p><strong>Radiation scheme</strong>: which incorporates various gases, aerosols, cloud droplets and ice crystals.</p></li>
+<li><p><strong>Boundary layer</strong> :  These schemes involves calculating eddy diffusivities to represent unresolved turbulence. Both a diagnostic scheme, and prognostic schemes using higher order moments of turbulence (including turbulent kinetic energy) are available, the latter requires short timesteps and high vertical resolution and are recommended only for research and regimes of rapid temporal or spatial variation in surface forcing, i.e. the kinds of problems that 21st Century Weather will be investigating, such as urban heat effects on the diurnal cycle, wildfire, extreme precipitation and flooding events etc.</p></li>
+<li><p><strong>Precipitation</strong> : Uses a large-scale mixed-phase scheme designed to work with PC2 cloud, and a cloud-aerosol interacting microphysics scheme (CASIM). The latter is a multi-moment scheme which includes radar reflectivity as a prognostic variable.</p></li>
+<li><p><strong>Convection</strong> : It’s recommended to use the 6A version as 5A will be obsolete. Co-Morph is new scheme currently being developed between the UK Met Office and the Bureau, see <a class="reference external" href="http://www.bom.gov.au/research/workshop/2021/talks/D2S3_5_AlisonStirling.pdf">here</a> and <a class="reference external" href="https://rmets.onlinelibrary.wiley.com/doi/10.1002/qj.4781">here</a>.</p></li>
+<li><p><strong>Land surface fluxes</strong> are computed using <a class="reference external" href="https://www.metoffice.gov.uk/research/approach/collaboration/jwcrp/jules">JULES</a>.</p></li>
+<li><p><strong>Gravity Wave Drag</strong> is represented using two parameterizations : Gravity Wave Drag and flow-blocking drag due to sub-scale orogography and drag/acceleration due to all other (i.e. non-orographic) sources of gravity waves. How the drag is partitioned into these two components is depending on the low-level Froude number.</p></li>
+<li><p><strong>River routing</strong> : This scheme maps total run-off along prescribed channels to the sea. The Global 1A scheme (TRIP) is fixed on a 1 degree grid. The regional 2A scheme (G2G) uses flow paths generated offline using a digital terrain model (which will be required for high resolution 21stCentury work). The demarcation between which grid-squares are ‘river’ or ‘non-river’ is determined by applying a threshold area to an ancilliary file which gives an estimate of land area draining to every pixel.</p></li>
+<li><p><strong>Chemistry and aerosol</strong> : Mutiple schemes are available, some are only applicable for modeling the troposphere or stratosphere. GLOMAP allows sophisticated treatment of aerosol evolution for specific research questions (e.g. black carbon, sea-salt, dust, sulphate)</p></li>
+<li><p><strong>Nudging</strong> : Variables that can be ‘Nudged’ (i.e. using Newton Relaxation) are U, V and theta (potential temperature). This is a simple form of data assimilation. It is used to align a climate model to the actual meteorology.</p></li>
 </ul>
-<p>These documents focus on sections most relevant to staff in the 21stCenturyWeather Centre-of-Excellence:</p>
-<ul class="simple">
-<li><p>A quick review of the equations used to model the atmosphere</p></li>
-<li><p>Executables required to run a high-resolution regional UM simulation within a <code class="docutils literal notranslate"><span class="pre">rose/cylc</span></code> suite including:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">fcm_make</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Reconfingure</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CreateBC</span></code></p></li>
-</ul>
-</li>
-<li><p>Details of domain decomposition, halos and lateral boundary conditions (LBCs)</p></li>
-<li><p>Editing STASH tables to analyse UM outputs</p></li>
-</ul>
-<div class="toctree-wrapper compound">
-</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -420,12 +411,21 @@ document.write(`
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
-    <a class="right-next"
+    <a class="left-prev"
        href="overview.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Overview</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="code.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Overview</p>
+        <p class="prev-next-title">Code management and structure</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

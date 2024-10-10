@@ -1,0 +1,578 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Code management and structure &#8212; Unified Model Summary Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'code';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Understanding the UM" href="understanding.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="introduction.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Unified Model Summary Documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introduction.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="understanding.html">Understanding the UM</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Code management and structure</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/21centuryweather/UM_summary_docs" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/21centuryweather/UM_summary_docs/issues/new?title=Issue%20on%20page%20%2Fcode.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/code.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Code management and structure</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compilation">Compilation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallelisation">Parallelisation.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#user-definable-2d-decomposition">User-definable 2D decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#namelist-control">Namelist control</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="code-management-and-structure">
+<h1>Code management and structure<a class="headerlink" href="#code-management-and-structure" title="Permalink to this heading">#</a></h1>
+<p>The UM Source code can be viewed at <a class="reference external" href="https://code.metoffice.gov.uk/trac/um">https://code.metoffice.gov.uk/trac/um</a> using your UK Met Office (UKMO) Science Repository Service (MOSRS) login. This is the same service that you will use to access ACCESS <code class="docutils literal notranslate"><span class="pre">rose/cylc</span></code> suites for 21stCentury Weather.</p>
+<p>It you want to make UM code changes, the user is advised to complete the following tutorials: <a class="reference external" href="http://metomi.github.io/fcm/doc/user_guide/getting_started.html">http://metomi.github.io/fcm/doc/user_guide/getting_started.html</a></p>
+<p>There are many sources of information regarding <a class="reference external" href="https://www.metoffice.gov.uk/research/approach/modelling-systems/rose"><code class="docutils literal notranslate"><span class="pre">rose</span></code></a> and <code class="docutils literal notranslate"><span class="pre">cylc</span></code> - the scheduling software used to execute the UM to simulate the atmosphere. <code class="docutils literal notranslate"><span class="pre">Cylc</span></code> has an active [discourse group] (<a class="reference external" href="https://cylc.discourse.group">https://cylc.discourse.group</a>).  The homepage for <code class="docutils literal notranslate"><span class="pre">Rose</span></code> documentation is <a class="reference external" href="https://metomi.github.io/rose/doc/html/index.html">here</a> which contains a short tutorial.</p>
+<p>A good place to start is to read through the material available here:</p>
+<p><a class="reference external" href="https://code.metoffice.gov.uk/doc/um/latest/um-training/getting-started.html">https://code.metoffice.gov.uk/doc/um/latest/um-training/getting-started.html</a></p>
+<p>We will run through the UM tutorial in the next section.</p>
+<p>As mentioned before, the UM is a very complex piece of software whose operation is governed by a vast array of plain-text (ASCII) files including <code class="docutils literal notranslate"><span class="pre">namelist</span></code> files which provide information to every component of the UM. The <code class="docutils literal notranslate"><span class="pre">rose/cylc</span></code> framework provides a graphical-user interface (GUI) and a simple set of master control files which (hopefully) shield the user from the complex management tasks of the entire UM configuration, and allow them to focus on their particular field of interest.</p>
+<section id="compilation">
+<h2>Compilation<a class="headerlink" href="#compilation" title="Permalink to this heading">#</a></h2>
+<p>The UM code is compiled using <code class="docutils literal notranslate"><span class="pre">fcm</span> <span class="pre">make</span></code>. The <code class="docutils literal notranslate"><span class="pre">fcm</span></code> executable is the UKMO wrapper around the version control software <code class="docutils literal notranslate"><span class="pre">svn</span></code> which is like <code class="docutils literal notranslate"><span class="pre">git</span></code> but older and harder to use.</p>
+<ul class="simple">
+<li><p>Rose suites can often trigger UM compilations. The rose-app.conf file contains an <code class="docutils literal notranslate"><span class="pre">[env]</span></code> section which defines variables that control the compilation settings. These can be viewed through the <code class="docutils literal notranslate"><span class="pre">'rose</span> <span class="pre">config-edit'</span></code> GUI.</p></li>
+<li><p>Building from MOSRS requires authentication.Wwhen you wish to access an <code class="docutils literal notranslate"><span class="pre">fcm</span></code> or <code class="docutils literal notranslate"><span class="pre">svn</span></code> URL on the MOSRS in an <code class="docutils literal notranslate"><span class="pre">fcm</span> <span class="pre">make</span></code> app, it is necessary instead to access the local mirror of that URL, e.g. <code class="docutils literal notranslate"><span class="pre">fcm:um.xm/trunk</span></code> instead of <code class="docutils literal notranslate"><span class="pre">fcm:um.x/trunk</span></code>. This is true both when providing a path to a central configuration file, and when providing a path to any locations from which a task will extract source code.</p></li>
+<li><p>When modifying a <code class="docutils literal notranslate"><span class="pre">rose-app.conf</span></code> file :
+a. <code class="docutils literal notranslate"><span class="pre">rose-app.conf</span></code> variables may not refer to each other.
+b. The position of a statement relative to the <code class="docutils literal notranslate"><span class="pre">include</span> <span class="pre">=</span></code> line is important.</p></li>
+<li><p>Global, file, Path and Couple overrides for flags exist.</p></li>
+</ul>
+<p>It is unlikely you will have to alter any parameters that control UM compilation while running your suite, but it’s useful to know what is happening “under the hood.”</p>
+</section>
+<section id="parallelisation">
+<h2>Parallelisation.<a class="headerlink" href="#parallelisation" title="Permalink to this heading">#</a></h2>
+<p>Atmospheric simulations must be run across multiple, separate processors as there doesn’t exist a single processor with sufficient speed and memory availability to run any useful simulation by itself.</p>
+<p>The UM uses horizontal domain decomposition, i.e. the latitude/longitude grid is parceled up into rectangular subdomains, each containing a complete set of vertical levels.  Typically, a single domain will run on a separate processor (which typically will have multiple processing cores). Each processor has access to its own memory space.</p>
+<p>Regular inter-processor communication is required so that information can be transferred between neighbouring subdomains. This is achieved by extending the local subdomain by a number of rows or columns in each dimension, to form a <em>halo</em> around the data. This halo region holds data which is communicated from adjacent processors, so allowing each processor to have access to neighbouring processors’ edge conditions. The UM uses different halo sizes for different variables. Variables that have no horizontal dependencies in calculations will have no halos while those that have will have single point halos. Some variables (primarily advected quantities) have extended halos, the size of which may be specified in the GUI/input namelists.</p>
+<p>Further information regarding how halos are used between each processor can be found at : <a class="reference external" href="https://code.metoffice.gov.uk/doc/um/latest/papers/umdp_C71.pdf">https://code.metoffice.gov.uk/doc/um/latest/papers/umdp_C71.pdf</a></p>
+<p>(These notes will summarise the relevant sections of that document in due course)</p>
+</section>
+<section id="user-definable-2d-decomposition">
+<h2>User-definable 2D decomposition<a class="headerlink" href="#user-definable-2d-decomposition" title="Permalink to this heading">#</a></h2>
+<p>If you are generating a new subdomain, or creating an ACCESS suite to run at a new resolution, it’s likely that you will have to pay attention to some of these issues.</p>
+<ul>
+<li><p>The processors are numbered from the bottom left corner, along the rows. For example for a 4 x 2 decomposition the <code class="docutils literal notranslate"><span class="pre">pe</span></code> (processing-element) numbers would be:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>          4 5 6 7 
+
+          0 1 2 3 
+</pre></div>
+</div>
+</li>
+<li><p>As far as possible each processor has the same local row length and number of rows. However, if this is not possible, the extra points in a row are distributed symmetrically. This means that in a global model each processor has the same number of points per row as the processor on the opposite side of the globe. Extra rows are distributed to the southern-most processor for the ENDGame UM core. The remaining extra rows are distributed symmetrically around the equator, starting at the processor(s) closest to the equator.</p></li>
+<li><p>Additionally, a shared memory parallelisation is available based on OpenMP compiler directive technology. This works underneath the parallel decomposition layer with each processor being able to utilise a number of threads to share the work available. This is done by subdivision of independent iterations of the most costly loops.</p></li>
+<li><p>Running the UM on a parallel computer requires attention to the following inputs:</p>
+<ul class="simple">
+<li><p>The ”job submission” method and resource ”directives” required. This is currently set up in the Rose suite.rc files.</p></li>
+<li><p>The number of processors in the North-South / East-West directions. Some experimentation may be required to find the arrangement giving optimum performance. It is typical (although not universally the case) for a decomposition with smaller numbers of processors in the East-West direction than in the North-South direction to give best performance. The atmosphere model is restricted in the possible decompositions in that (for efficient communications over the poles) the number of processors in the East-West direction has to be either one, or an even number.</p></li>
+<li><p>The number of OpenMP threads. Most model configurations work best with 1 or 2 threads currently, but this will depend on your computer architecture and more may be useful in some circumstances.</p></li>
+</ul>
+</li>
+<li><p>The following tweaks can improve runtime:</p>
+<ul class="simple">
+<li><p>Disabling timer facility.</p></li>
+<li><p>The number of OpenMP threads (mentioned above) can be tuned for best performance also. There is little experience with this yet but 1 or sometimes 2 threads tend to be the best currently.</p></li>
+<li><p>Altering the number of segments or segment size in the Short/Long Wave radiation and convection scheme. Precipitation, Boundary Layer and Gravity Wave Drag allow tuning of segment size. Recommended values can be found in the UM metadata file.</p></li>
+<li><p>I/O servers may be utilised to speed up model output. The default (synchronous) mode has been well tested. The asynchronous mode for STASH and dumps is newer and has had less testing at present, but may give better performance.</p></li>
+<li><p>Section C96 describes GCOM and MPI methods.</p></li>
+</ul>
+</li>
+</ul>
+<p>STASH is the name given the files and formats that control UM outputs (i.e. which variables are output at what frequency)</p>
+</section>
+<section id="namelist-control">
+<h2>Namelist control<a class="headerlink" href="#namelist-control" title="Permalink to this heading">#</a></h2>
+<p>Below is section describing the main <code class="docutils literal notranslate"><span class="pre">namelists</span></code> used to control the UM executable. These will be configured in your <code class="docutils literal notranslate"><span class="pre">rose/cylc</span></code> suite and should not require any alteration. But if something goes wrong, it’s good to know where to start to investigate the problem.</p>
+<ul class="simple">
+<li><p>The UM uses serval Control Files which provide namelists:</p>
+<ul>
+<li><p>ATMOSCNTL — atmosphere-only runtime namelist items, especially science options.</p></li>
+<li><p>IOSCNTL — settings for the IO server</p></li>
+<li><p>RECONA — control of the atmosphere reconfiguration</p></li>
+<li><p>SHARED — namelists common to both the atmosphere sub-model and reconfiguration</p></li>
+<li><p>SIZES — sizes defining model domain, number of levels etc.</p></li>
+<li><p>STASHC — control of STASH diagnostic output system</p></li>
+</ul>
+</li>
+<li><p>For 21stCentury users, the most important sections are the RECONA (reconfiguration control) and STASHC (controlling user outputs). As mentioned before, every time you run an experiment which moves from a lower resolution domain into a higher one, you will be using RECONA.</p></li>
+<li><p>The top level script that runs the Unified Model atmos is um-atmos and may be found at, for example: <code class="docutils literal notranslate"><span class="pre">$UMDIR/cylc-run/vn9.1_prebuilds/share/[configuration]/build-atmos/bin/um-atmos</span></code> or <a class="reference external" href="http://fcm2/projects/UM/browser/UM/trunk/bin">http://fcm2/projects/UM/browser/UM/trunk/bin</a></p></li>
+<li><p>A dedicated IO server can be specified with namelist <code class="docutils literal notranslate"><span class="pre">io_control</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UM_SHELL</span></code> is the Top Level routine. The history file contains only control variables required for restarts.</p></li>
+<li><p>Running <code class="docutils literal notranslate"><span class="pre">NRUN</span></code> (normal run) as <code class="docutils literal notranslate"><span class="pre">CRUN</span></code> (continuation run) - required to support long-running climate suites where <code class="docutils literal notranslate"><span class="pre">CRUN</span></code> data isn’t otherwise available as its scattered across many files.</p></li>
+<li><p>Domain decomposition, even for a single processor job (1x1), is done by the <code class="docutils literal notranslate"><span class="pre">DECOMPOSE</span> <span class="pre">ATMOS</span></code> and <code class="docutils literal notranslate"><span class="pre">CHANGE</span> <span class="pre">DECOMPOSITION</span></code> routines, followed by the routine <code class="docutils literal notranslate"><span class="pre">DERVSIZE</span></code> to derive the sizes needed for dynamic allocation of memory for all the main model arrays.</p></li>
+<li><p>Routine <code class="docutils literal notranslate"><span class="pre">U_MODEL</span></code> houses <code class="docutils literal notranslate"><span class="pre">ATM_STEP</span></code> (atmospheric step) which does the time integration. ENDGame specific versions are <code class="docutils literal notranslate"><span class="pre">EG_ATM_STEP</span></code>, with filename <code class="docutils literal notranslate"><span class="pre">ATM_STEP_4A</span></code>.</p></li>
+<li><p>Time updateding of NetCDF climatology fields is possible</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="understanding.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Understanding the UM</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compilation">Compilation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallelisation">Parallelisation.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#user-definable-2d-decomposition">User-definable 2D decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#namelist-control">Namelist control</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 21st Century Weather
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
