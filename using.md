@@ -195,4 +195,48 @@ To set up coupling in Rose for NEMO and CICE, you need
 
 OASIS3-MCT performs its coupling transformations in parallel, directly in the PSMLe library layer. Running coupled model components concurrently presents opportunities to achieve optimum load balance, as each component can be independently assigned processors to match the speed of other components. The total speed is constrained by:
 - The scalability of the slowest component, i.e. if the atmosphere scales well with lots of PEs but NEMO-CICE degrades with further PEs, adding more PEs won't give more speedup. Adding more PEs to the UM will help but its speed is always limited by exchanging data with NEMO-CICE.
-- OASIS3-MCT have very littler overhead. 
+- OASIS3-MCT has very little overhead. 
+- Some platforms (gadi?) allow OASIS3-MCT to distribute atmosphere and ocean processes among the same nodes to achieve uniform memory usage.
+
+## STASH
+
+The UM outputs data using the Spatial and Temporal Averaging and Storage Handling (STASH) system. This is rather a byzantine method to determine which variables are sent by default to raw 'PP' binary Fortran output 'fieldsfiles'. (where 'PP' = 'Post Processing').
+
+STASH can be confusing and archaic to begin with. It is very flexible and powerful, but that costs comes with associated complexity.
+
+To access STASH in the Rose GUI:
+- `UM -> namelist -> Model Input and Output -> STASH Requests and Profiles -> Stash requests`
+
+The user selects the diagnostics (a.k.a. variables) required for their model run. Each diagnostic has three profiles:
+1. dom(ain)_name
+2. tim(e)_name
+3. use_name
+
+The best way to start is usually copy another app's STASHC namelists: `umstash_streq(:), umstash_domain(:), umstash_time(:)` and `umstash_use(:)` as a starting point.
+
+The top of the STASH requests panel contains numerous macros for tidying and checking the requested stash namelists:
+- stashindices.TidyStashTransform : Correct the index of the STASH related namelists
+- stashindices.TidyStashTransformPruneDuplicated : Correct the index of the STASH related namelists and
+prune duplicates
+- stashindices.TidyStashValidate : Check STASH related namelists have the correct index
+- stashtestmask.STASHTstmaskValidate : Check that the stash requests are available
+
+It is advisable to work through these macros to check your STASHC namelist is correct before running a suite.
+
+Inside a UM/ACCESS rose/cylc suite, the STASH information is provided via the `install_cold` app, which will link the centralised `STASHmaster` directory to your local `~/cylc-run` directory under `share/etc/ancils/STASHmaster`. Note the format of the `STASHmaster_A` file and be thankful there is now a GUI for editing this file.
+
+New diagnostics are created using the "new" button on the top right of the GUI. A useful feature is to disable (rather than delete) various diagnostics which can be reactivated if required.
+
+Each diagnostic must that a Time, Domain and Usage profile attached. Right-clicking the profile name in the stash requests panel and selecting view provides more detailed information. Essentially:
+- Time profiles determine when a diagnostic will be output (e.g. hourly, daily) and any time processing (e.g. accumulation or mean)
+- Domain profiles determine the spatial extent (horizontal and vertical) of the output
+- Usage profiles specify the output unit number the fieldsfile will be written to. This is a Fortran relic whereby data files are often written to files according to an integer 'unit number' (rather than a filename). Fieldsfiles unit numbers are reserved for range 60-69 and 151. So Output written to units 60, 61, ... , 69 and 151 is stored in files with extensions `.pp0, .pp1, ..., .pp9` and `.pp10`. As an example, output sent to unit 64 from run task ATMOS will go to the file atmos.pp4. These binary Fieldsfiles can also be periodically opened and closed during a model run, and can be used like a scratch disk. This is called reinitialisation and such fieldsfiles have extensions `.pa, .pb, ... , .pj` and include an automatically coded model date/time. To select this use `UM -> namelist -> Model Input and Output -> Model Output Streams`.
+
+The STASHmaster file is centrally held and is unique for each UM version.
+
+Altering your local STASHmaster copy is required to add new prognostics, diagnostics or ancillary fields. Usually adding new prognostics or diagnostics requires UM code changes, but a "user ancillary" system allows the user to add new fields as UM ancillary files without code changes and recompilation (provided these fields don't affect the model evolution itself). These "User Ancillaries: use reserved section 0 STASHcodes:
+- 301–320 : For atmosphere single level ancillaries
+- 321–340 : For atmosphere multi-level ancillaries
+
+
+
