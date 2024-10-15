@@ -230,7 +230,7 @@ New diagnostics are created using the "new" button on the top right of the GUI. 
 Each diagnostic must that a Time, Domain and Usage profile attached. Right-clicking the profile name in the stash requests panel and selecting view provides more detailed information. Essentially:
 - Time profiles determine when a diagnostic will be output (e.g. hourly, daily) and any time processing (e.g. accumulation or mean)
 - Domain profiles determine the spatial extent (horizontal and vertical) of the output
-- Usage profiles specify the output unit number the fieldsfile will be written to. This is a Fortran relic whereby data files are often written to files according to an integer 'unit number' (rather than a filename). Fieldsfiles unit numbers are reserved for range 60-69 and 151. So Output written to units 60, 61, ... , 69 and 151 is stored in files with extensions `.pp0, .pp1, ..., .pp9` and `.pp10`. As an example, output sent to unit 64 from run task ATMOS will go to the file atmos.pp4. These binary Fieldsfiles can also be periodically opened and closed during a model run, and can be used like a scratch disk. This is called reinitialisation and such fieldsfiles have extensions `.pa, .pb, ... , .pj` and include an automatically coded model date/time. To select this use `UM -> namelist -> Model Input and Output -> Model Output Streams`.
+- Usage profiles specify the output unit number the fieldsfile will be written to. This is a relic of Fortran whereby data files are often written to files according to an integer 'unit number' (rather than a filename). Fieldsfiles unit numbers are reserved for range 60-69 and 151. So Output written to units 60, 61, ... , 69 and 151 is stored in files with extensions `.pp0, .pp1, ..., .pp9` and `.pp10`. As an example, output sent to unit 64 from run task ATMOS will go to the file atmos.pp4. These binary Fieldsfiles can also be periodically opened and closed during a model run, and can be used like a scratch disk. This is called reinitialisation and such fieldsfiles have extensions `.pa, .pb, ... , .pj` and include an automatically coded model date/time. To select this use `UM -> namelist -> Model Input and Output -> Model Output Streams`.
 
 The STASHmaster file is centrally held and is unique for each UM version.
 
@@ -238,5 +238,48 @@ Altering your local STASHmaster copy is required to add new prognostics, diagnos
 - 301–320 : For atmosphere single level ancillaries
 - 321–340 : For atmosphere multi-level ancillaries
 
+To initialise any **prognostic** fields for a run, use `UM -> namelist -> Reconfiguration and Ancillary Control -> Configure ancils and initialise dump fields`
 
+STASH comes with pre-configured routined to take means at climate timescales. There are some restrictions:
+- The lowest period mean (e.g. annual) must be a multiple of the model dumping period
+- higher periods are multiples of the lower periods
+- there are up to **four** periods available
+- All climate-meaned diagnostics use a subset of the same periods
+- the climate means system runs continuously throughout the whole run
+- When using the Gregorian calendar, only monthly, seasonal and annual means are available.
 
+A mean reference data can be supplied so that all mean periods are aligned with certain months (e.g. DJF for a seasonal mean).
+
+Once climate-meaning is set up, STASH diagnostics have to be attached to a usage profile which sends them to the climate-means system.
+
+## Troubleshooting
+
+The complexity of the UM system allows many avenues for mistakes. A successful model runs tarts with the job definition using the UM GUI and input namelists. The job is launched by Rose and UM program scripts are executed. A standard pattern for a rose suite is:
+1. Compile the model to generate a new executable (`fcm_make_task`)
+2. Invoke the reconfiguration program (`recon task`)
+3. Run the model (`atmos task`)
+However a rose suite may only use one of these stages. 
+
+All stages may work, but the model integration may fail due to numerical errors!
+
+Each UM version has a set of release notes which contains lists of known problems and fubs.
+
+First step to UM troubleshooting is to examine the relative output files using `rose suite-log` and `rose bush`.
+
+When running in parallel note that an OUTPUT file is generated for each processor and held temporarily in separate files, optionally deleted at end of job. Only the file corresponding to PE0 is included in the job output listing, with title "PE0 OUTPUT". If there isn’t an error message in the PE0 output it is worth checking the output from other PEs as it is possible that only a subset of PEs encountered the error.
+
+Runtime output will appear in the following order in job output files. The variables starting “%” can be used for searching but are also in the listing of SCRIPT if requested.
+- Rose Script output:
+- %PE0 : all output from PE0
+    - "Atmosphere run-time constants" : details of science settings.
+    - "READING UNIFIED MODEL DUMP" : details of the input starting dump
+    - "Atm Step: Timestep 1" : initialisation completed, atmosphere time-stepping started
+    - "END OF RUN - TIMER OUTPUT": timing information
+Typical problems include:
+1. User errors in model set-up.
+• Incorrect filenames specified (including user-specific variables and typos) • Logic errors in user updates;
+• Inappropriate parameter values chosen.
+2. UM system errors in control. 
+3. Science formulation errors.
+4. Input data errors
+5. OS/hardware problems
