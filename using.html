@@ -368,6 +368,11 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#obtaining-new-lateral-boundary-data">Obtaining new lateral boundary data</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ancillary-and-boundary-files">Ancillary and Boundary files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coupling-to-ocean-and-sea-ice">Coupling to Ocean and Sea Ice</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coupled-models">Coupled Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stash">STASH</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting">Troubleshooting</a></li>
 </ul>
             </nav>
         </div>
@@ -392,7 +397,7 @@ document.write(`
 <section id="reconfiguration">
 <h2>Reconfiguration<a class="headerlink" href="#reconfiguration" title="Permalink to this heading">#</a></h2>
 <p>As previously mentioned, a lot of the work to configure the UM to run over a new domain, at a new resolution, is performed by the <em>Reconfigure</em> executable.</p>
-<p>The reconfiguration is part of the suite of UM supporting executables and is a standalone program. The re- configuration allows the user to modify UM dump files which contain the necessary data to define the initial conditions for a model run. The format of UM dump files is described in <a class="reference external" href="https://code.metoffice.gov.uk/doc/um/latest/papers/umdp_F03.pdf">UMDP-F03</a> . The reconfiguration program only processes atmospheric data.</p>
+<p>The reconfiguration is part of the suite of UM supporting executables and is a standalone program. The re-configuration allows the user to modify UM dump files which contain the necessary data to define the initial conditions for a model run. The format of UM dump files is described in <a class="reference external" href="https://code.metoffice.gov.uk/doc/um/latest/papers/umdp_F03.pdf">UMDP-F03</a> . The reconfiguration program only processes atmospheric data.</p>
 <p>The reconfiguration is run as a task within a Rose suite. The initial conditions are input in the UM app namelist and configurable through the UM Rose GUI. Not all UM suites require a reconfiguration task and thus this may or may not be included in a suite dependency graph as required.</p>
 <ul class="simple">
 <li><p>Reconfiguration allows the user to modify UM dump files which contain information to define the initial conditions. A file needs reconfiguring if:</p>
@@ -422,41 +427,41 @@ document.write(`
 <li><p>Changing horizontal or vertical levels may require changing dynamics and diffusion parameters. Seek advice from dynamics code experts</p></li>
 <li><p>Changing horizontal resolution:</p>
 <ul>
-<li><p><strong>UM -&gt; namelist -&gt; Reconfiguration and Ancillary control -&gt; Output dump grid sizes and levels</strong>: Specific number of rows and <code class="docutils literal notranslate"><span class="pre">row_length</span></code>. Number of land points is required if you are reconfiguring to a different horizontal resolution without a land sea mask</p></li>
-<li><p><strong>UM -&gt; namelist -&gt; Top Level Model control -&gt; Model domain and timestep</strong>: Increased resolution needs a reduction in timestep. If ‘period’ is kept = 1 day, you need to increase number of timesteps per ‘period’. Check STASH diagnostic requests and frequency of radiation calls are still integer multiples of the timestep.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UM</span> <span class="pre">-&gt;</span> <span class="pre">namelist</span> <span class="pre">-&gt;</span> <span class="pre">Reconfiguration</span> <span class="pre">and</span> <span class="pre">Ancillary</span> <span class="pre">control</span> <span class="pre">-&gt;</span> <span class="pre">Output</span> <span class="pre">dump</span> <span class="pre">grid</span> <span class="pre">sizes</span> <span class="pre">and</span> <span class="pre">levels</span></code>: Specific number of rows and <code class="docutils literal notranslate"><span class="pre">row_length</span></code>. Number of land points is required if you are reconfiguring to a different horizontal resolution without a land sea mask</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UM</span> <span class="pre">-&gt;</span> <span class="pre">namelist</span> <span class="pre">-&gt;</span> <span class="pre">Top</span> <span class="pre">Level</span> <span class="pre">Model</span> <span class="pre">control</span> <span class="pre">-&gt;</span> <span class="pre">Model</span> <span class="pre">domain</span> <span class="pre">and</span> <span class="pre">timestep</span></code>: Increased resolution needs a reduction in timestep. If ‘period’ is kept = 1 day, you need to increase number of timesteps per ‘period’. Check STASH diagnostic requests and frequency of radiation calls are still integer multiples of the timestep.</p></li>
 <li><p>Increased resolution requires more memory – you may need to increase ‘number of segments’ for long/short-wave radiation and convection. Or, increase number of processors.</p></li>
-<li><p><strong>UM -&gt; env -&gt; Runtime Controls -&gt; Atmosphere Only</strong>: Choose number of processors in North-South and East-West directions. Try to aim for a ‘squarer’ decomposition. If running on more than one node, ensure there are no unused processors (unless allocated to I/O server or coupled model).</p></li>
-<li><p>To reconfigure ancillaries : <strong>UM -&gt; namelist -&gt; Reconfiguration and Ancillary control -&gt; Configure ancils and initialise dump fields</strong> : The reconfiguration program can interpolate dumps to other resolutions, but ancillary files can only be used at their native resolution. The UM will fail if you try to “Update” ancillary fields from files at the wrong resolution. Reconfiguration will fail if you try to “Configure” from ancillary files at the wrong resolution.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UM</span> <span class="pre">-&gt;</span> <span class="pre">env</span> <span class="pre">-&gt;</span> <span class="pre">Runtime</span> <span class="pre">Controls</span> <span class="pre">-&gt;</span> <span class="pre">Atmosphere</span> <span class="pre">Only</span></code>: Choose number of processors in North-South and East-West directions. Try to aim for a ‘squarer’ decomposition. If running on more than one node, ensure there are no unused processors (unless allocated to I/O server or coupled model).</p></li>
+<li><p>To reconfigure ancillaries : <code class="docutils literal notranslate"><span class="pre">UM</span> <span class="pre">-&gt;</span> <span class="pre">namelist</span> <span class="pre">-&gt;</span> <span class="pre">Reconfiguration</span> <span class="pre">and</span> <span class="pre">Ancillary</span> <span class="pre">control</span> <span class="pre">-&gt;</span> <span class="pre">Configure</span> <span class="pre">ancils</span> <span class="pre">and</span> <span class="pre">initialise</span> <span class="pre">dump</span> <span class="pre">fields</span></code> : The reconfiguration program can interpolate dumps to other resolutions, but ancillary files can only be used at their native resolution. The UM will fail if you try to “Update” ancillary fields from files at the wrong resolution. Reconfiguration will fail if you try to “Configure” from ancillary files at the wrong resolution.</p></li>
 <li><p>In addition to changing processors, you may need to alter job resources (memory and time). Memory is proportional to grid points (unless you have more processors), time is proportional to grid points and timesteps required. These are set in suite files rather than apps.</p></li>
 <li><p>Changes to dynamics or diffusion parameters will be required when changing horizontal resolution.</p></li>
 </ul>
 </li>
 <li><p>Changing vertical resolution:</p>
 <ul>
-<li><p><strong>UM -&gt; namelist -&gt; Reconfiguration and Ancillary control -&gt; Output dump grid sizes and levels</strong> : Choose number of levels, ‘wet’ levels (which include moisture calculations) and ozone levels. <code class="docutils literal notranslate"><span class="pre">ETA_THETA</span></code>, <code class="docutils literal notranslate"><span class="pre">ETA_RHO</span></code> levels and the top height of the model (<code class="docutils literal notranslate"><span class="pre">Z_TOP_OF_MODEL</span></code>) are specified in the vertical levels namelist. The ‘number of levels+1’ <code class="docutils literal notranslate"><span class="pre">ETA_THETA</span></code> values must start at 0.0 and end at 1.0. <code class="docutils literal notranslate"><span class="pre">FIRST</span> <span class="pre">CONSTANT</span> <span class="pre">R</span> <span class="pre">RHO</span> <span class="pre">LEVEL</span></code> is where terrain-following surfaces change to constant height. This should be at least 2x maximum orography height in the model domain. The vertical levels namelist file is <code class="docutils literal notranslate"><span class="pre">vert_lev</span></code> which contains number of boundary layer levels (which may now cover the whole depth of the troposphere to allow better boundary layer/convection coupling), deep soil levels (usually four), and cloud levels used in radiation (which should be the minimum of number of wet levels and total number of levels).</p></li>
-<li><p>Cloud info : <strong>UM -&gt; namelist -&gt; UM Science Settings -&gt; General Physics Options -&gt; Large Scale Cloud</strong> : Number of <code class="docutils literal notranslate"><span class="pre">rhcrit</span></code> values must = number of model levels. Regional models often use different sets of low level critical humidity ratio values compared with global models. Diffusion settings may need to be reviewed as they contain level information.</p></li>
-<li><p><strong>Ancillaries : UM -&gt; namelist -&gt; Reconfiguration and Ancillary control -&gt; Configure ancils and initialise dump fields</strong>: Changes to vertical levels and spacing will impact the ozone ancillary.</p></li>
-<li><p>STASH will need to be updated for new vertical levels (including boundary layer levels), and maybe timestep changes via: <strong>UM -&gt; namelist -&gt; Model Input and Output -&gt; STASH request and profiles</strong>. Avoid the use of timesteps in preference to hours, days etc.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UM</span> <span class="pre">-&gt;</span> <span class="pre">namelist</span> <span class="pre">-&gt;</span> <span class="pre">Reconfiguration</span> <span class="pre">and</span> <span class="pre">Ancillary</span> <span class="pre">control</span> <span class="pre">-&gt;</span> <span class="pre">Output</span> <span class="pre">dump</span> <span class="pre">grid</span> <span class="pre">sizes</span> <span class="pre">and</span> <span class="pre">levels</span></code> : Choose number of levels, ‘wet’ levels (which include moisture calculations) and ozone levels. <code class="docutils literal notranslate"><span class="pre">ETA_THETA</span></code>, <code class="docutils literal notranslate"><span class="pre">ETA_RHO</span></code> levels and the top height of the model (<code class="docutils literal notranslate"><span class="pre">Z_TOP_OF_MODEL</span></code>) are specified in the vertical levels namelist. The ‘number of levels+1’ <code class="docutils literal notranslate"><span class="pre">ETA_THETA</span></code> values must start at 0.0 and end at 1.0. <code class="docutils literal notranslate"><span class="pre">FIRST</span> <span class="pre">CONSTANT</span> <span class="pre">R</span> <span class="pre">RHO</span> <span class="pre">LEVEL</span></code> is where terrain-following surfaces change to constant height. This should be at least 2x maximum orography height in the model domain. The vertical levels namelist file is <code class="docutils literal notranslate"><span class="pre">vert_lev</span></code> which contains number of boundary layer levels (which may now cover the whole depth of the troposphere to allow better boundary layer/convection coupling), deep soil levels (usually four), and cloud levels used in radiation (which should be the minimum of number of wet levels and total number of levels).</p></li>
+<li><p>Cloud info : <code class="docutils literal notranslate"><span class="pre">UM</span> <span class="pre">-&gt;</span> <span class="pre">namelist</span> <span class="pre">-&gt;</span> <span class="pre">UM</span> <span class="pre">Science</span> <span class="pre">Settings</span> <span class="pre">-&gt;</span> <span class="pre">General</span> <span class="pre">Physics</span> <span class="pre">Options</span> <span class="pre">-&gt;</span> <span class="pre">Large</span> <span class="pre">Scale</span> <span class="pre">Cloud</span></code> : Number of <code class="docutils literal notranslate"><span class="pre">rhcrit</span></code> values must = number of model levels. Regional models often use different sets of low level critical humidity ratio values compared with global models. Diffusion settings may need to be reviewed as they contain level information.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ancillaries</span> <span class="pre">:</span> <span class="pre">UM</span> <span class="pre">-&gt;</span> <span class="pre">namelist</span> <span class="pre">-&gt;</span> <span class="pre">Reconfiguration</span> <span class="pre">and</span> <span class="pre">Ancillary</span> <span class="pre">control</span> <span class="pre">-&gt;</span> <span class="pre">Configure</span> <span class="pre">ancils</span> <span class="pre">and</span> <span class="pre">initialise</span> <span class="pre">dump</span> <span class="pre">fields</span></code>: Changes to vertical levels and spacing will impact the ozone ancillary.</p></li>
+<li><p>STASH will need to be updated for new vertical levels (including boundary layer levels), and maybe timestep changes via: <code class="docutils literal notranslate"><span class="pre">UM</span> <span class="pre">-&gt;</span> <span class="pre">namelist</span> <span class="pre">-&gt;</span> <span class="pre">Model</span> <span class="pre">Input</span> <span class="pre">and</span> <span class="pre">Output</span> <span class="pre">-&gt;</span> <span class="pre">STASH</span> <span class="pre">request</span> <span class="pre">and</span> <span class="pre">profiles</span></code>. Avoid the use of timesteps in preference to hours, days etc.</p></li>
 </ul>
 </li>
-<li><p>UM can support up to 150 ‘tracers’ advected using semi-Lagrangian advection scheme. See <strong>UM -&gt; namelist -&gt; Sections 10 11 12 Dynamic settings -&gt; Advection</strong> :</p>
+<li><p>UM can support up to 150 ‘tracers’ advected using semi-Lagrangian advection scheme. See <code class="docutils literal notranslate"><span class="pre">UM</span> <span class="pre">-&gt;</span> <span class="pre">namelist</span> <span class="pre">-&gt;</span> <span class="pre">Sections</span> <span class="pre">10</span> <span class="pre">11</span> <span class="pre">12</span> <span class="pre">Dynamic</span> <span class="pre">settings</span> <span class="pre">-&gt;</span> <span class="pre">Advection</span></code> :</p>
 <ul>
 <li><p>Tracers are initialised  with ITEMS namelist. Ancillary file for tracer initialisation can be generated from <code class="docutils literal notranslate"><span class="pre">pp</span></code> files, ensure STASH, <code class="docutils literal notranslate"><span class="pre">pp</span></code> and grid codes are correct and set <code class="docutils literal notranslate"><span class="pre">space</span> <span class="pre">code</span> <span class="pre">=</span> <span class="pre">2</span></code> so item is included in the dump.</p></li>
 <li><p>The reconfiguration step checks verification time of the data matches that of the dump being reconfigured into. It is difficult to include a ‘test blob’ without recreating the ancillary field. An FCM changeset can get generated to solve this.</p></li>
 <li><p>Level dependent constants must match the dump.</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">MURK</span></code> is advected using the tracer scheme and can assimilate visibility data. See <strong>UM -&gt; namelist -&gt; UM Science settings -&gt; Section 17 Aerosol (CLASSIC, dust and murk)</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MURK</span></code> is advected using the tracer scheme and can assimilate visibility data. See <code class="docutils literal notranslate"><span class="pre">UM</span> <span class="pre">-&gt;</span> <span class="pre">namelist</span> <span class="pre">-&gt;</span> <span class="pre">UM</span> <span class="pre">Science</span> <span class="pre">settings</span> <span class="pre">-&gt;</span> <span class="pre">Section</span> <span class="pre">17</span> <span class="pre">Aerosol</span> <span class="pre">(CLASSIC,</span> <span class="pre">dust</span> <span class="pre">and</span> <span class="pre">murk)</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">CLASSIC</span></code>, dust and <code class="docutils literal notranslate"><span class="pre">MURK</span></code> lateral boundary conditions (LBCs) can in included in the LBC files.</p></li>
 <li><p>UKCA model tracers may be selected depending on chemical or aerosol scheme.</p></li>
-<li><p>Free tracers is for testing new schemes. See <strong>UM -&gt; namelist -&gt; UM Science settings -&gt; Section 33 Free Tracers</strong>.</p></li>
+<li><p>Free tracers is for testing new schemes. See <code class="docutils literal notranslate"><span class="pre">UM</span> <span class="pre">-&gt;</span> <span class="pre">namelist</span> <span class="pre">-&gt;</span> <span class="pre">UM</span> <span class="pre">Science</span> <span class="pre">settings</span> <span class="pre">-&gt;</span> <span class="pre">Section</span> <span class="pre">33</span> <span class="pre">Free</span> <span class="pre">Tracers</span></code>.</p></li>
 </ul>
 </section>
 <section id="setting-up-a-new-limited-area-model-lam">
 <h2>Setting up a new Limited Area Model (LAM)<a class="headerlink" href="#setting-up-a-new-limited-area-model-lam" title="Permalink to this heading">#</a></h2>
 <p>Setting up the Unified Model for a new limited area domain is relatively straightforward, and will enable you to run higher resolution suites concentrating on your area of interest. However you should at the outset consider the time and effort involved.</p>
 <ul class="simple">
-<li><p>The time will be 2 days to a week or so of dedicated work, to get a smoothly running Limited Area Model (LAM) on a new domain, depending on experience. A similar length of time may be needed to create new ancillary files for the new domain. In addition, because of the work involved in preparing Incremental-Analysis-Update/acobs files, running with data assimilation on a new domain requires further work. (Not required for us at 21st Century Weather!).</p></li>
+<li><p>The time will be 2 days to a week or so of dedicated work, to get a smoothly running Limited Area Model (LAM) on a new domain, depending on experience. A similar length of time may be needed to create new ancillary files for the new domain.</p></li>
 <li><p>It is recommended, where possible, that users base their LAMs on one of the Met Office app configurations. This will greatly reduce the work involved in setting up a LAM over your domain of interest, leaving you to consider:</p>
 <ul>
 <li><p>the size of domain, horizontal and vertical resolution</p></li>
@@ -471,7 +476,7 @@ document.write(`
 <ul>
 <li><p>horizontal and vertical resolution (the spacing of grid points/model levels)</p></li>
 <li><p>the model timestep</p></li>
-<li><p>the choice of science parametrizations</p></li>
+<li><p>the choice of science parameterizations</p></li>
 <li><p>the order and coefficients of diffusion; these will depend on grid length and timestep.</p></li>
 </ul>
 </li>
@@ -481,13 +486,13 @@ document.write(`
 <ul class="simple">
 <li><p>The definition of a UM domains request 8 items:</p>
 <ul>
-<li><p>Lat/lon co-ords of the rotated pole</p></li>
+<li><p>Lat/lon coords of the rotated pole</p></li>
 <li><p>X and Y direction gridlengths – labelled as col and row spacing</p></li>
 <li><p>X and Y grid dimensions in gridlengths – labelled as No. Cols/rows</p></li>
 <li><p>Lat/lon of bottom left corner (relative to rotated pole), labelled as First lat/lon</p></li>
 </ul>
 </li>
-<li><p>Working in the Southern Hemisphere, take extra care in defining the domain coords. The UM can work with imaginary latitude &gt; 90N for the rotated poll but data in the output files could break plotting programs.</p></li>
+<li><p>ßßWorking in the Southern Hemisphere, take extra care in defining the domain coords! The UM can work with imaginary latitude &gt; 90N for the rotated poll but data in the output files could break plotting programs**.</p></li>
 <li><p>An alternative and the recommended approach, which gives an identical forecast and a correct map background, is to ”mirror” back to a rotated latitude between 0 and 90N by subtracting from 180, e.g. 110N =&gt; 70N. Then swing the rotated longitude through 180 degrees, and also add 180 degrees to the longitude of the bottom left corner.</p></li>
 <li><p>When selecting the new domain, it will save time on tuning the model if you choose a tried and tested resolution for which diffusion coefficients etc. are known. e.g. 0.11 degrees for the current UK NAE model, 0.036 degrees for the UK 4km model, and 0.0189 for AUS2200.</p></li>
 </ul>
@@ -496,8 +501,8 @@ document.write(`
 <h3>Creating new ancillary files<a class="headerlink" href="#creating-new-ancillary-files" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>You will want new land/sea masks, orography, soil, vegetation and ozone ancillary files for your new LAM domain.</p></li>
-<li><p>Atmosphere ancilary files are created with a program running on UKMO IBM. If you require one outside UKMO, contact Ported UM support at UKMO.</p></li>
-<li><p>Examine the land/sea masks around single grid point islands or sea inlets which may create unrealistic effects for surface and boundary fields. After finalising the land/sea mask, create the other anciliaries.</p></li>
+<li><p>Atmosphere ancillary files are created with a program running on UKMO IBM. If you require one outside UKMO, contact Ported UM support at UKMO.</p></li>
+<li><p>Examine the land/sea masks around single grid point islands or sea inlets which may create unrealistic effects for surface and boundary fields. After finalising the land/sea mask, create the other ancillaries.</p></li>
 <li><p>Enter values to exactly the same precision as you will use in the UM namelists/GUI when setting up suites. Otherwise your runs may fail internal consistency checks in the model.</p></li>
 <li><p>Also make sure longitudes are in the range 0 - 360 degrees as this is preferred for the UM namelists.</p></li>
 </ul>
@@ -506,61 +511,205 @@ document.write(`
 <h3>Obtaining new lateral boundary data<a class="headerlink" href="#obtaining-new-lateral-boundary-data" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Use CreateBC to create LBCs.</p></li>
-<li><p>Setting up RCF (Reconfiguration) and UM. You can use RCF to transplant data from any new ancilary files into the LAM start dump.</p></li>
-<li><p>The orography at edge of the LAM must be the same as used in the driving model. LBC data is defined on the driving model’s levels, which need to be the same heights as the LAM levels in the rimwidth where they are defined. Since model level height depends on the height of the orography beneath it, both models must have the same orography within the LBC rimwidth. In the model area immediately inside the LBC rimwidth the orography is slowly relaxed from the driving model to the full resolution orography for the LAM using linear interpolation. This area is called the `blending zone’ and it includes the LBC rimwidth. Blending across the rimwidth is achieved by running RCF with the input dump from the drivin gmodel to create an output dump for the LAM model to be run. Gridpoints in the blending zone have weights from 1 (orography = driving model) to 0 (orography = LAM).</p></li>
+<li><p>Setting up RCF (Reconfiguration) and UM. You can use RCF to transplant data from any new ancillary files into the LAM start dump.</p></li>
+<li><p>The orography at edge of the LAM must be the same as used in the driving model. LBC data is defined on the driving model’s levels, which need to be the same heights as the LAM levels in the rimwidth where they are defined. Since model level height depends on the height of the orography beneath it, both models must have the same orography within the LBC rimwidth. In the model area immediately inside the LBC rimwidth the orography is slowly relaxed from the driving model to the full resolution orography for the LAM using linear interpolation. This area is called the `blending zone’ and it includes the LBC rimwidth. Blending across the rimwidth is achieved by running RCF with the input dump from the driving model to create an output dump for the LAM model to be run. Gridpoints in the blending zone have weights from 1 (orography = driving model) to 0 (orography = LAM).</p></li>
 <li><p>Settings for the width of the blending zone and their weights will depend on the orographic details at the LAM boundary. Rimwidth blending weights should be 1.</p></li>
-<li><p>Whenever orography in the driving model changes, the blended LAM orogaphy must be reconfigured!</p></li>
-<li><p>To check the model domain is set to LAM use UM -&gt; namelist -&gt; Top Level Model Control -&gt; Model Domain and Timestep:</p></li>
-<li><p>Use UM -&gt; namelist -&gt; Top Level Model Control -&gt; LAM Configuration to set delta_lat/lon, frstlata/firstlona, polelata, polelona as set in LAMPOS.</p></li>
-<li><p>Specify blending zone and LBC file using UM -&gt; namelist -&gt; Top Level Model Control -&gt; LBC Related Options.</p></li>
-<li><p>Set forecast run start-time and forecast length using UM -&gt; namelist -&gt; Top Level Model Control -&gt; Run control and Time Settings. Do not exceed the timespan covered by your LBCs!</p></li>
-<li><p>Enter your vertical level definitions which must be identical to the file specificed for generatig your LBCs using UM -&gt; namelist -&gt; Reconfiguration and Ancillary Control -&gt; Output dump grid sizes and levels.</p></li>
+<li><p>Whenever orography in the driving model changes, the blended LAM orography must be reconfigured!</p></li>
+<li><p>To check the model domain is set to LAM use <code class="docutils literal notranslate"><span class="pre">UM</span> <span class="pre">-&gt;</span> <span class="pre">namelist</span> <span class="pre">-&gt;</span> <span class="pre">Top</span> <span class="pre">Level</span> <span class="pre">Model</span> <span class="pre">Control</span> <span class="pre">-&gt;</span> <span class="pre">Model</span> <span class="pre">Domain</span> <span class="pre">and</span> <span class="pre">Timestep</span></code>:</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">UM</span> <span class="pre">-&gt;</span> <span class="pre">namelist</span> <span class="pre">-&gt;</span> <span class="pre">Top</span> <span class="pre">Level</span> <span class="pre">Model</span> <span class="pre">Control</span> <span class="pre">-&gt;</span> <span class="pre">LAM</span> <span class="pre">Configuration</span></code> to set delta_lat/lon, frstlata/firstlona, polelata, polelona as set in LAMPOS.</p></li>
+<li><p>Specify blending zone and LBC file using <code class="docutils literal notranslate"><span class="pre">UM</span> <span class="pre">-&gt;</span> <span class="pre">namelist</span> <span class="pre">-&gt;</span> <span class="pre">Top</span> <span class="pre">Level</span> <span class="pre">Model</span> <span class="pre">Control</span> <span class="pre">-&gt;</span> <span class="pre">LBC</span> <span class="pre">Related</span> <span class="pre">Options</span></code>.</p></li>
+<li><p>Set forecast run start-time and forecast length using <code class="docutils literal notranslate"><span class="pre">UM</span> <span class="pre">-&gt;</span> <span class="pre">namelist</span> <span class="pre">-&gt;</span> <span class="pre">Top</span> <span class="pre">Level</span> <span class="pre">Model</span> <span class="pre">Control</span> <span class="pre">-&gt;</span> <span class="pre">Run</span> <span class="pre">control</span> <span class="pre">and</span> <span class="pre">Time</span> <span class="pre">Settings</span></code>. Do not exceed the timespan covered by your LBCs!</p></li>
+<li><p>Enter your vertical level definitions which must be identical to the file specified for generating your LBCs using <code class="docutils literal notranslate"><span class="pre">UM</span> <span class="pre">-&gt;</span> <span class="pre">namelist</span> <span class="pre">-&gt;</span> <span class="pre">Reconfiguration</span> <span class="pre">and</span> <span class="pre">Ancillary</span> <span class="pre">Control</span> <span class="pre">-&gt;</span> <span class="pre">Output</span> <span class="pre">dump</span> <span class="pre">grid</span> <span class="pre">sizes</span> <span class="pre">and</span> <span class="pre">levels</span></code>.</p></li>
 <li><p>If your land/sea mask was not initialised from an ancillary file you will need to enter the number of land points. You can find this number using RCF.</p></li>
-<li><p>You can configure new ancillaries using UM -&gt; namelist -&gt; Reconfiguration and Ancillary Control -&gt;configure ancils and initialise data</p></li>
-<li><p>Many suites will be set up (via env var) to immediately pick up the start dump created by reconfiguration. Set this explicitly using UM -&gt; namelist -&gt; Model Input and Output -&gt; Filenames for model input and output.</p></li>
-<li><p>If you have a non-standard horizontal resolution, you can revise your choice of diffusion coefficients using UM -&gt; namelist -&gt; UM Science settings -&gt; Section 13: Diffusion, Filtering</p></li>
+<li><p>You can configure new ancillaries using <code class="docutils literal notranslate"><span class="pre">UM</span> <span class="pre">-&gt;</span> <span class="pre">namelist</span> <span class="pre">-&gt;</span> <span class="pre">Reconfiguration</span> <span class="pre">and</span> <span class="pre">Ancillary</span> <span class="pre">Control</span> <span class="pre">-&gt;configure</span> <span class="pre">ancils</span></code> and initialise data</p></li>
+<li><p>Many suites will be set up (via env var) to immediately pick up the start dump created by reconfiguration. Set this explicitly using <code class="docutils literal notranslate"><span class="pre">UM</span> <span class="pre">-&gt;</span> <span class="pre">namelist</span> <span class="pre">-&gt;</span> <span class="pre">Model</span> <span class="pre">Input</span> <span class="pre">and</span> <span class="pre">Output</span> <span class="pre">-&gt;</span> <span class="pre">Filenames</span> <span class="pre">for</span> <span class="pre">model</span> <span class="pre">input</span> <span class="pre">and</span> <span class="pre">output</span></code>.</p></li>
+<li><p>If you have a non-standard horizontal resolution, you can revise your choice of diffusion coefficients using <code class="docutils literal notranslate"><span class="pre">UM</span> <span class="pre">-&gt;</span> <span class="pre">namelist</span> <span class="pre">-&gt;</span> <span class="pre">UM</span> <span class="pre">Science</span> <span class="pre">settings</span> <span class="pre">-&gt;</span> <span class="pre">Section</span> <span class="pre">13:</span> <span class="pre">Diffusion,</span> <span class="pre">Filtering</span></code></p></li>
 <li><p>Once set up, execute a run short enough to test STASH output or ancillary updates.</p></li>
-<li><p>The UM supports multiple scientific model configurations. Within each sub-model (e.g. atmosphere) there are internal model (e.g. radiation) can be further sub-divided in the sections sub-menu which control routines for calculating diagnostics, I/O operations etc.</p></li>
+<li><p>The UM supports multiple scientific model configurations. Within each sub-model (e.g. atmosphere) there are internal models (e.g. radiation) that can be further sub-divided in the sections sub-menu which control routines for calculating diagnostics, I/O operations etc.</p></li>
 <li><p>Science schemes should be readily interchangeable with those from other models. The glue routine separates control and science layers.</p></li>
-<li><p>IAU = Incremental Analysis Update are computed by VAR and then added to UM initial conditions.</p></li>
-<li><p>An ancillary file can contain an ancillary field (temporal boundary conditions for a model forecast ) or a prognostic field (predicted by the model’s output).</p></li>
-<li><p>There are 3 ways to include an ancillary file in a UM run:
-○ In the initial dump already.
-○ Replaced in the initial dump by configuring from an ancillary file on the correct domain and resolution
-○ Added to the initial dump as a new ancillary file  y configuring from an ancillary file on the correct domain and resolution</p></li>
+</ul>
+</section>
+</section>
+<section id="ancillary-and-boundary-files">
+<h2>Ancillary and Boundary files<a class="headerlink" href="#ancillary-and-boundary-files" title="Permalink to this heading">#</a></h2>
+<p>An ancillary file can contain an ancillary field (temporal boundary conditions for a model forecast ) or a prognostic field (predicted by the model’s output).
+There are 3 ways to include an ancillary file in a UM run:</p>
+<ul class="simple">
+<li><p>In the initial dump already.</p></li>
+<li><p>Replaced in the initial dump by configuring from an ancillary file on the correct domain and resolution</p></li>
+<li><p>Added to the initial dump as a new ancillary file by configuring from an ancillary file on the correct domain and resolution</p></li>
+</ul>
+<p>The user should note:</p>
+<ul class="simple">
 <li><p>There are advantages to using ancillary files. The user has more control of the data, the interpolation / regridding performed within the ancillary creation program is consistent across fields (e.g. vegetation and soil parameters).</p></li>
-<li><p>For testing new suites, RCF is sufficient and ancillary files only become necessary when the new domain is finalised.</p></li>
-<li><p>Locations of ancillary files are specified in ‘Ancil version files’.</p></li>
+<li><p>For testing new suites, interpolation performed using the Reconfiguration executable itself (RCF) is sufficient and ancillary files only become necessary when the new domain is finalised.</p></li>
+</ul>
+<p>Locations of ancillary files are specified in ‘Ancil version files’.</p>
+<ul class="simple">
 <li><p>Standard ancillary filenames included ‘parm’ for constant files (e.g. orography, land-sea mask) or ‘clim’ for climatologies which have time-dependence (e.g. soil moisture, SSTs).</p></li>
-<li><p>New atmospheric ancillary files can be created using UKMO programs (Central Ancillary File Makng Program)</p></li>
+<li><p>New atmospheric ancillary files can be created using UKMO programs (ANTS and Central Ancillary Program) - see <a class="reference external" href="https://code.metoffice.gov.uk/doc/ancil/ants/latest/index.html">https://code.metoffice.gov.uk/doc/ancil/ants/latest/index.html</a></p></li>
 <li><p>Ancillary fields can be ‘configured’ (replaced or added to start dump by RCF) or ‘updated’ (modified at specific time intervals). Updating is part of the UM itself.</p></li>
 <li><p>Control of ancillary fields in the UM is done via the rose-app.conf file. Look for namelists &amp;ANCILCTA and optionally &amp;ITEMS if fields are to be updated. The ancillary fie header will determine the update frequency.</p></li>
 <li><p>Other controls including SST and sea-ice, temporal interpolation of fields, choice of updating land or sea points are coded in subroutine REPLANCA (one in RCF, one in UM).</p></li>
-<li><p>LBCs (created by CreateBC) can be termed as an ancillary file.</p></li>
+<li><p>LBCs (created with the CreateBC utility) can be termed as an ancillary file.</p></li>
 <li><p>New prognostic and ancillary fields can be set up using any STASH item number.</p></li>
 <li><p>Setting up user ancillaries is more restrictive and must use a list of reserved STASH item numbers for single and multi-level fields.</p></li>
-<li><p>The UM can be run as a single-column-model for physics testing</p></li>
-<li><p>UKMO support coupling with NEMO ocean and CICE sea ice.</p></li>
-<li><p>CICE is not dynamically allocated and CPU arrangements must be provided during compilation. This is done by supplying dimensions and PE configuration details in the form of numeric FPP keys which are incorporated in the code during compilation.</p></li>
-<li><p>Before you can run a coupled model, you need
-○ Directories containing input files
-○ NEMO and CICE restart files - usually netCDF files containing the grid definition.
-○ NEMO and CICE configuration and FCM options. See Rose configuration items : fcm_make_ocean -&gt; env -&gt; Sources
-○ FPP Keys to set all necessary options (including CICE PE config) also need to be set. See fcm_make_ocean -&gt; env -&gt; Pre-processing
-○ NEMO and CICE components are built into a single executable combining both sets of code with an internal direct coupling interface. Hence the OASIS3-MCT coupler plays no part in this internal coupling.</p></li>
-<li><p>NEMO and CICE have poor error handling (e.g. some NEMO versions terminate with Fortran ‘STOP’, leaving any processes belonging to other components deadlocked). The model will exceed CPU wall time, while the real reason for failure is an internal NEMO-CICE internal error.</p></li>
-<li><p>Attempt to ensure all components employ an MPI_ABORT (with non-zero return code to allow rose environment to detect the error) on all processes (possibly via OASIS_ABORT) if it becomes necessary for any of them to prematurely halt execution.</p></li>
+</ul>
+</section>
+<section id="coupling-to-ocean-and-sea-ice">
+<h2>Coupling to Ocean and Sea Ice<a class="headerlink" href="#coupling-to-ocean-and-sea-ice" title="Permalink to this heading">#</a></h2>
+<p>UKMO support coupling with NEMO ocean and CICE sea ice. 21st Century Weather uses the MOM ocean model.</p>
+<p>CICE is not dynamically allocated and CPU arrangements must be provided during compilation. This is done by supplying dimensions and PE configuration details in the form of numeric FPP keys which are incorporated in the code during compilation.</p>
+<p>Before you can run a coupled model, you need</p>
+<ul class="simple">
+<li><p>Directories containing input files</p></li>
+<li><p>NEMO and CICE restart files - usually netCDF files containing the grid definition.</p></li>
+<li><p>NEMO and CICE configuration and FCM options. See Rose configuration items : <code class="docutils literal notranslate"><span class="pre">fcm_make_ocean</span> <span class="pre">-&gt;</span> <span class="pre">env</span> <span class="pre">-&gt;</span> <span class="pre">Sources</span></code></p></li>
+<li><p>FPP Keys to set all necessary options (including CICE PE config) also need to be set. See <code class="docutils literal notranslate"><span class="pre">fcm_make_ocean</span> <span class="pre">-&gt;</span> <span class="pre">env</span> <span class="pre">-&gt;</span> <span class="pre">Pre-processing</span></code></p></li>
+<li><p>NEMO and CICE components are built into a single executable combining both sets of code with an internal direct coupling interface. Hence the OASIS3-MCT coupler plays no part in this internal coupling.</p></li>
+</ul>
+<p>NEMO and CICE have poor error handling (e.g. some NEMO versions terminate with Fortran ‘STOP’, leaving any processes belonging to other components deadlocked). The model will exceed CPU wall time, while the real reason for failure is an internal NEMO-CICE internal error.</p>
+<p>Attempt to ensure all components employ an MPI_ABORT (with non-zero return code to allow rose environment to detect the error) on all processes (possibly via OASIS_ABORT) if it becomes necessary for any of them to prematurely halt execution.</p>
+<ul class="simple">
 <li><p>CICE standard output ice_diag.d is not included in UM output.</p></li>
 <li><p>For any failed coupled model run, examine not only the UM outputs but any files created in the job directory produced by the coupler, NEMO or CICE (and there are many!)</p></li>
+</ul>
+</section>
+<section id="coupled-models">
+<h2>Coupled Models<a class="headerlink" href="#coupled-models" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
 <li><p>UM uses OASIS3-MCT to support multi-way coupling b/w the UM, NEMO-CICE and a wave model (Wavewatch III). Coupler libraries have to be pre-built. The coupler interfaces routines (PRISM System Model Interface Library - PSMILe) are linked during compilation to the UM and other components.</p></li>
+<li><p>21st Century Weather will use NUOPC coupler in line with ACCESS-NRI : <a class="reference external" href="https://earthsystemmodeling.org/nuopc/">https://earthsystemmodeling.org/nuopc/</a></p></li>
 <li><p>To achieve coupling - model states are regridded and passed periodically from one sub-model to another via the coupler.</p></li>
-<li><p>The convention is time-averaged atmospheric fields force the ocean, while instantaneous ocean-seaice componetns force the atmosphere (due to the timesteps of the atmosphere being shorter). One or three-hour coupling periods are common practise.</p></li>
+<li><p>The time-stepping convention is time-averaged atmospheric fields force the ocean, while instantaneous ocean-sea-ice components force the atmosphere (due to the timesteps of the atmosphere being shorter). One or three-hour coupling periods are common practise.</p></li>
 <li><p>OASIS3-MCT will handle the regridding between the sub-models.</p></li>
 <li><p>For high-resolution configurations the use of ESMF regirdding weights generation tool is recommended.</p></li>
 <li><p>Coupled models require less ancillary fields (e.g. no more SST climatologies)</p></li>
-<li><p>To do : 5.12.5</p></li>
+</ul>
+<p>To set up coupling in Rose for NEMO and CICE, you need</p>
+<ul class="simple">
+<li><p>A copy of the coupled model drivers from the MOCI repository to provide the model setup and shutdown processes.</p></li>
+<li><p>A Rose “suite.rc” file to compile and run the coupled model, e.g.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="n">suite</span> <span class="n">conf</span>
+     <span class="n">coupled</span>
+     <span class="n">fcm_make_drivers</span>
+     <span class="n">fcm_make_ocean</span>
+     <span class="n">fcm_make_um</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Coupler settings, including coupling frequency, location of coupler and associated input and output files. Typical rose configuration settings:
+<code class="docutils literal notranslate"><span class="pre">suite</span> <span class="pre">conf</span> <span class="pre">-&gt;</span> <span class="pre">Machine</span> <span class="pre">Options</span> <span class="pre">-&gt;</span> <span class="pre">Use</span> <span class="pre">Environment</span> <span class="pre">Modules</span></code>: set to <code class="docutils literal notranslate"><span class="pre">Centrally</span> <span class="pre">installed</span></code> or <code class="docutils literal notranslate"><span class="pre">Custom</span> <span class="pre">module</span> <span class="pre">files</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">suite</span> <span class="pre">conf</span> <span class="pre">-&gt;</span> <span class="pre">Machine</span> <span class="pre">Options-&gt;</span> <span class="pre">Science</span> <span class="pre">Configuration</span> <span class="pre">Module</span> <span class="pre">Name:</span></code> The module to be employed. This makes the pre-built coupler libraries, NetCDF versions, etc. available to the compilation of all components and at run time.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">um</span> <span class="pre">-&gt;</span> <span class="pre">command</span> <span class="pre">-&gt;</span> <span class="pre">command</span> <span class="pre">default</span></code> : set to <code class="docutils literal notranslate"><span class="pre">run_model</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">um</span> <span class="pre">-&gt;</span> <span class="pre">env</span> <span class="pre">-&gt;</span> <span class="pre">Coupled</span> <span class="pre">Settings</span> <span class="pre">-&gt;</span> <span class="pre">COUPLER:</span> <span class="pre">&quot;none&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;OASIS3-MCT&quot;</span></code>(or <code class="docutils literal notranslate"><span class="pre">&quot;NUOPC&quot;)</span></code>?</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">um</span> <span class="pre">-&gt;</span> <span class="pre">env</span> <span class="pre">-&gt;</span> <span class="pre">RMP_DIR:</span></code> Location of OASIS remapping (rmp) weights files</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">namelist</span> <span class="o">-&gt;</span> <span class="n">Coupling</span>
+    <span class="o">-&gt;</span> <span class="n">l_oasis_ocean</span><span class="p">:</span> <span class="n">Couple</span> <span class="n">to</span> <span class="n">ocean</span> <span class="n">model</span>
+    <span class="o">-&gt;</span> <span class="n">l_oasis_wave</span><span class="p">:</span> <span class="n">Couple</span> <span class="n">to</span> <span class="n">wave</span> <span class="n">model</span>
+    <span class="o">-&gt;</span> <span class="n">oasis_couple_freq_ao</span><span class="p">:</span> <span class="n">Coupling</span> <span class="n">frequency</span> <span class="k">for</span> <span class="n">atmosphere</span> <span class="n">to</span> <span class="n">ocean</span> 
+    <span class="o">-&gt;</span> <span class="n">oasis_couple_freq_oa</span><span class="p">:</span> <span class="n">Coupling</span> <span class="n">frequency</span> <span class="k">for</span> <span class="n">ocean</span> <span class="n">to</span> <span class="n">atmosphere</span>
+    <span class="o">-&gt;</span> <span class="n">oasis_couple_freq_aw</span><span class="p">:</span> <span class="n">Coupling</span> <span class="n">frequency</span> <span class="k">for</span> <span class="n">atmosphere</span> <span class="n">to</span> <span class="n">wave</span> 
+    <span class="o">-&gt;</span> <span class="n">oasis_couple_freq_wa</span><span class="p">:</span> <span class="n">Coupling</span> <span class="n">frequency</span> <span class="k">for</span> <span class="n">wave</span> <span class="n">to</span> <span class="n">atmosphere</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Coupling frequency in <code class="docutils literal notranslate"><span class="pre">namcouple</span></code>  files must match the values in UM <code class="docutils literal notranslate"><span class="pre">oasis_couple_freq</span></code> values. <code class="docutils literal notranslate"><span class="pre">namcouple</span></code> frequencies are not automatically updated based on values specified in Rose. Inconsistent settings will lead to deadlock.</p></li>
+</ul>
+<p>OASIS3-MCT performs its coupling transformations in parallel, directly in the PSMLe library layer. Running coupled model components concurrently presents opportunities to achieve optimum load balance, as each component can be independently assigned processors to match the speed of other components. The total speed is constrained by:</p>
+<ul class="simple">
+<li><p>The scalability of the slowest component, i.e. if the atmosphere scales well with lots of PEs but NEMO-CICE degrades with further PEs, adding more PEs won’t give more speedup. Adding more PEs to the UM will help but its speed is always limited by exchanging data with NEMO-CICE.</p></li>
+<li><p>OASIS3-MCT has very little overhead.</p></li>
+<li><p>Some platforms (gadi?) allow OASIS3-MCT to distribute atmosphere and ocean processes among the same nodes to achieve uniform memory usage.</p></li>
 </ul>
 </section>
+<section id="stash">
+<h2>STASH<a class="headerlink" href="#stash" title="Permalink to this heading">#</a></h2>
+<p>The UM outputs data using the Spatial and Temporal Averaging and Storage Handling (STASH) system. This is rather a byzantine method to determine which variables are sent by default to raw ‘PP’ binary Fortran output ‘fieldsfiles’. (where ‘PP’ = ‘Post Processing’).</p>
+<p>STASH can be confusing and archaic to begin with. It is very flexible and powerful, but that costs comes with associated complexity.</p>
+<p>To access STASH in the Rose GUI:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">UM</span> <span class="pre">-&gt;</span> <span class="pre">namelist</span> <span class="pre">-&gt;</span> <span class="pre">Model</span> <span class="pre">Input</span> <span class="pre">and</span> <span class="pre">Output</span> <span class="pre">-&gt;</span> <span class="pre">STASH</span> <span class="pre">Requests</span> <span class="pre">and</span> <span class="pre">Profiles</span> <span class="pre">-&gt;</span> <span class="pre">Stash</span> <span class="pre">requests</span></code></p></li>
+</ul>
+<p>The user selects the diagnostics (a.k.a. variables) required for their model run. Each diagnostic has three profiles:</p>
+<ol class="arabic simple">
+<li><p>dom(ain)_name</p></li>
+<li><p>tim(e)_name</p></li>
+<li><p>use_name</p></li>
+</ol>
+<p>The best way to start is usually copy another app’s STASHC namelists: <code class="docutils literal notranslate"><span class="pre">umstash_streq(:),</span> <span class="pre">umstash_domain(:),</span> <span class="pre">umstash_time(:)</span></code> and <code class="docutils literal notranslate"><span class="pre">umstash_use(:)</span></code> as a starting point.</p>
+<p>The top of the STASH requests panel contains numerous macros for tidying and checking the requested stash namelists:</p>
+<ul class="simple">
+<li><p>stashindices.TidyStashTransform : Correct the index of the STASH related namelists</p></li>
+<li><p>stashindices.TidyStashTransformPruneDuplicated : Correct the index of the STASH related namelists and
+prune duplicates</p></li>
+<li><p>stashindices.TidyStashValidate : Check STASH related namelists have the correct index</p></li>
+<li><p>stashtestmask.STASHTstmaskValidate : Check that the stash requests are available</p></li>
+</ul>
+<p>It is advisable to work through these macros to check your STASHC namelist is correct before running a suite.</p>
+<p>Inside a UM/ACCESS rose/cylc suite, the STASH information is provided via the <code class="docutils literal notranslate"><span class="pre">install_cold</span></code> app, which will link the centralised <code class="docutils literal notranslate"><span class="pre">STASHmaster</span></code> directory to your local <code class="docutils literal notranslate"><span class="pre">~/cylc-run</span></code> directory under <code class="docutils literal notranslate"><span class="pre">share/etc/ancils/STASHmaster</span></code>. Note the format of the <code class="docutils literal notranslate"><span class="pre">STASHmaster_A</span></code> file and be thankful there is now a GUI for editing this file.</p>
+<p>New diagnostics are created using the “new” button on the top right of the GUI. A useful feature is to disable (rather than delete) various diagnostics which can be reactivated if required.</p>
+<p>Each diagnostic must that a Time, Domain and Usage profile attached. Right-clicking the profile name in the stash requests panel and selecting view provides more detailed information. Essentially:</p>
+<ul class="simple">
+<li><p>Time profiles determine when a diagnostic will be output (e.g. hourly, daily) and any time processing (e.g. accumulation or mean)</p></li>
+<li><p>Domain profiles determine the spatial extent (horizontal and vertical) of the output</p></li>
+<li><p>Usage profiles specify the output unit number the fieldsfile will be written to. This is a relic of Fortran whereby data files are often written to files according to an integer ‘unit number’ (rather than a filename). Fieldsfiles unit numbers are reserved for range 60-69 and 151. So Output written to units 60, 61, … , 69 and 151 is stored in files with extensions <code class="docutils literal notranslate"><span class="pre">.pp0,</span> <span class="pre">.pp1,</span> <span class="pre">...,</span> <span class="pre">.pp9</span></code> and <code class="docutils literal notranslate"><span class="pre">.pp10</span></code>. As an example, output sent to unit 64 from run task ATMOS will go to the file atmos.pp4. These binary Fieldsfiles can also be periodically opened and closed during a model run, and can be used like a scratch disk. This is called reinitialisation and such fieldsfiles have extensions <code class="docutils literal notranslate"><span class="pre">.pa,</span> <span class="pre">.pb,</span> <span class="pre">...</span> <span class="pre">,</span> <span class="pre">.pj</span></code> and include an automatically coded model date/time. To select this use <code class="docutils literal notranslate"><span class="pre">UM</span> <span class="pre">-&gt;</span> <span class="pre">namelist</span> <span class="pre">-&gt;</span> <span class="pre">Model</span> <span class="pre">Input</span> <span class="pre">and</span> <span class="pre">Output</span> <span class="pre">-&gt;</span> <span class="pre">Model</span> <span class="pre">Output</span> <span class="pre">Streams</span></code>.</p></li>
+</ul>
+<p>The STASHmaster file is centrally held and is unique for each UM version.</p>
+<p>Altering your local STASHmaster copy is required to add new prognostics, diagnostics or ancillary fields. Usually adding new prognostics or diagnostics requires UM code changes, but a “user ancillary” system allows the user to add new fields as UM ancillary files without code changes and recompilation (provided these fields don’t affect the model evolution itself). These “User Ancillaries: use reserved section 0 STASHcodes:</p>
+<ul class="simple">
+<li><p>301–320 : For atmosphere single level ancillaries</p></li>
+<li><p>321–340 : For atmosphere multi-level ancillaries</p></li>
+</ul>
+<p>To initialise any <strong>prognostic</strong> fields for a run, use <code class="docutils literal notranslate"><span class="pre">UM</span> <span class="pre">-&gt;</span> <span class="pre">namelist</span> <span class="pre">-&gt;</span> <span class="pre">Reconfiguration</span> <span class="pre">and</span> <span class="pre">Ancillary</span> <span class="pre">Control</span> <span class="pre">-&gt;</span> <span class="pre">Configure</span> <span class="pre">ancils</span> <span class="pre">and</span> <span class="pre">initialise</span> <span class="pre">dump</span> <span class="pre">fields</span></code></p>
+<p>STASH comes with pre-configured routined to take means at climate timescales. There are some restrictions:</p>
+<ul class="simple">
+<li><p>The lowest period mean (e.g. annual) must be a multiple of the model dumping period</p></li>
+<li><p>higher periods are multiples of the lower periods</p></li>
+<li><p>there are up to <strong>four</strong> periods available</p></li>
+<li><p>All climate-meaned diagnostics use a subset of the same periods</p></li>
+<li><p>the climate means system runs continuously throughout the whole run</p></li>
+<li><p>When using the Gregorian calendar, only monthly, seasonal and annual means are available.</p></li>
+</ul>
+<p>A mean reference data can be supplied so that all mean periods are aligned with certain months (e.g. DJF for a seasonal mean).</p>
+<p>Once climate-meaning is set up, STASH diagnostics have to be attached to a usage profile which sends them to the climate-means system.</p>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this heading">#</a></h2>
+<p>The complexity of the UM system allows many avenues for mistakes. A successful model runs tarts with the job definition using the UM GUI and input namelists. The job is launched by Rose and UM program scripts are executed. A standard pattern for a rose suite is:</p>
+<ol class="arabic simple">
+<li><p>Compile the model to generate a new executable (<code class="docutils literal notranslate"><span class="pre">fcm_make_task</span></code>)</p></li>
+<li><p>Invoke the reconfiguration program (<code class="docutils literal notranslate"><span class="pre">recon</span> <span class="pre">task</span></code>)</p></li>
+<li><p>Run the model (<code class="docutils literal notranslate"><span class="pre">atmos</span> <span class="pre">task</span></code>)
+However a rose suite may only use one of these stages.</p></li>
+</ol>
+<p>All stages may work, but the model integration may fail due to numerical errors!</p>
+<p>Each UM version has a set of release notes which contains lists of known problems and fubs.</p>
+<p>First step to UM troubleshooting is to examine the relative output files using <code class="docutils literal notranslate"><span class="pre">rose</span> <span class="pre">suite-log</span></code> and <code class="docutils literal notranslate"><span class="pre">rose</span> <span class="pre">bush</span></code>.</p>
+<p>When running in parallel note that an OUTPUT file is generated for each processor and held temporarily in separate files, optionally deleted at end of job. Only the file corresponding to PE0 is included in the job output listing, with title “PE0 OUTPUT”. If there isn’t an error message in the PE0 output it is worth checking the output from other PEs as it is possible that only a subset of PEs encountered the error.</p>
+<p>Runtime output will appear in the following order in job output files. The variables starting “%” can be used for searching but are also in the listing of SCRIPT if requested.</p>
+<ul class="simple">
+<li><p>Rose Script output:</p></li>
+<li><ul>
+<li><p>“Atmosphere run-time constants” : details of science settings.</p></li>
+<li><p>“READING UNIFIED MODEL DUMP” : details of the input starting dump</p></li>
+<li><p>“Atm Step: Timestep 1” : initialisation completed, atmosphere time-stepping started</p></li>
+<li><p>“END OF RUN - TIMER OUTPUT”: timing information
+Typical problems include:</p></li>
+</ul>
+</li>
+</ul>
+<ol class="arabic simple">
+<li><p>User errors in model set-up.
+• Incorrect filenames specified (including user-specific variables and typos) • Logic errors in user updates;
+• Inappropriate parameter values chosen.</p></li>
+<li><p>UM system errors in control.</p></li>
+<li><p>Science formulation errors.</p></li>
+<li><p>Input data errors</p></li>
+<li><p>OS/hardware problems</p></li>
+</ol>
 </section>
 </section>
 
@@ -625,6 +774,11 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#obtaining-new-lateral-boundary-data">Obtaining new lateral boundary data</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ancillary-and-boundary-files">Ancillary and Boundary files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coupling-to-ocean-and-sea-ice">Coupling to Ocean and Sea Ice</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coupled-models">Coupled Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stash">STASH</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting">Troubleshooting</a></li>
 </ul>
   </nav></div>
 
