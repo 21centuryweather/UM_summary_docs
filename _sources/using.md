@@ -83,7 +83,7 @@ Setting up the Unified Model for a new limited area domain is relatively straigh
     - X and Y direction gridlengths – labelled as col and row spacing
     - X and Y grid dimensions in gridlengths – labelled as No. Cols/rows
     - Lat/lon of bottom left corner (relative to rotated pole), labelled as First lat/lon
-- ßßWorking in the Southern Hemisphere, take extra care in defining the domain coords! The UM can work with imaginary latitude > 90N for the rotated poll but data in the output files could break plotting programs**.
+- Working in the Southern Hemisphere, take extra care in defining the domain coords! The UM can work with imaginary latitude > 90N for the rotated poll but data in the output files could break plotting programs**.
 - An alternative and the recommended approach, which gives an identical forecast and a correct map background, is to ”mirror” back to a rotated latitude between 0 and 90N by subtracting from 180, e.g. 110N => 70N. Then swing the rotated longitude through 180 degrees, and also add 180 degrees to the longitude of the bottom left corner. 
 - When selecting the new domain, it will save time on tuning the model if you choose a tried and tested resolution for which diffusion coefficients etc. are known. e.g. 0.11 degrees for the current UK NAE model, 0.036 degrees for the UK 4km model, and 0.0189 for AUS2200. 
 
