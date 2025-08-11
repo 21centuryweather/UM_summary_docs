@@ -117,3 +117,41 @@ The stdout/Fortran unit 6 output files from IOS tasks are names consistently wit
 
 Additional files produced by IOS server tasks:
 - `ioserver_log.<num>` where `<num>` is again the global rank. This file tracks memory use of the IO Server in three columns; time, queue size in words and change in queue size in words. **The file can be loaded into gnuplot directly.**, e.g. `plot ioserver_log.0031`.
+
+## Setup Guide
+
+When setting up an IO server, be aware of the following conditions.
+
+### Domain restrictions
+
+When you assign processors to an I/O server, you will change the overall decomposition of your domain. You have to run the reconfiguration step every time you change the domain decomposition.
+
+You assign the number of processors to the I/O servers by altering the `FLUME_IOS_NPROC` environment variable. Any non-zero value will trigger UM I/O logic and it will try to configure an I/O using the input environment variables and namelist inputs.
+
+I'm fairly sure you must be using at least two OPENMP threads in the UM task (i.e. set `UM_ATM_OMP=2` in `site/nci-gadi/suite-adds.rc` for the rAM3 suite.)
+
+The I/O namelist controls are located in `app/um/rose-app.conf` in the `[namelist:ioscntl]` section.
+
+From the Bureau advice on suite optimisation [link at code.metoffice.gov.uk](https://code.metoffice.gov.uk/trac/nwpscience/wiki/bomnwpscience/AccessNWP_SuiteOptimisations)
+
+> Gadi Cascade Lake nodes have 48 cores per node. Number of threads OMP_NUM_THREADS specified for a job should be set in a way that number of cores per node (48 is in the Cascade Lake case) is multiple of OMP_NUM_THREADS. The total number of cores used by a UM run is (NPROCX * NPROCY + FLUME_IOS_NPROC) * OMP_NUM_THREADS
+
+In our `suite.rc` files this is specified using
+``` 
+-l ncpus = {{(nx * ny + ios) * omp}}
+```
+
+The above link also suggests that
+> `ios_spacing` – it is recommended that no more than a single IO server PE should be placed on each node, on Cascade Lake nodes with 48 cores per node it is achieved with ios_spacing=48/OMP_NUM_THREADS
+
+However, for the AUS2200 configuration running on the Sapphire Rapid nodes, the following configuration was used when running a 68x68 decomposition using 96 threads per node and .
+```
+ios_spacing=68
+```
+Addittionally,
+```
+ios_tasks_per_server=8
+```
+was used because the AUS2200 model output six files (including the restart dump) at the end of the final timestep. So setting `FLUME_IOS_NCPROC = 48` with 8 tasks per server allowed these six file writes to be written in parallel.
+
+Investigation of the I/O server parameter settings for UM tasks on Gadi could prove fruitful.
