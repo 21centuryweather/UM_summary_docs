@@ -1,0 +1,577 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Design &#8212; Unified Model Summary Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'temp';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="introduction.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Unified Model Summary Documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introduction.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="understanding.html">Understanding the UM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code.html">Code management and structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using.html">Using the UM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lbc.html">Lateral Boundary Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io-server.html">IO server</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/21centuryweather/UM_summary_docs" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/21centuryweather/UM_summary_docs/issues/new?title=Issue%20on%20page%20%2Ftemp.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/temp.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Design</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Design</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#components">Components</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-flow">Data flow</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-requirements">General requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ioscntl-namelist"><code class="docutils literal notranslate"><span class="pre">IOSCNTL</span></code> namelist</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="design">
+<h1>Design<a class="headerlink" href="#design" title="Link to this heading">#</a></h1>
+<section id="components">
+<h2>Components<a class="headerlink" href="#components" title="Link to this heading">#</a></h2>
+<p>The main components of the IO subsystem are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">file_manager.F90</span></code> : module providing dynamic management of unit numbers</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">io.F90</span></code> : interface providing a single entry point to IO for all UM executables.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model_file.F90</span></code> : module which wraps some of the above commands for common operations such as opening and closing UM fieldsfiles.</p></li>
+<li><p>A c-layer providing low-level access to reading/writing from/to disk.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ios.F90</span></code> : module providing client access to remote IO services.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ios_stash.F90</span></code> : module providing client access to pattern specific remote IO services, for fast handling of STASH of Dump requests.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">io_server_writer.F90</span></code>, <code class="docutils literal notranslate"><span class="pre">io_server_lister.F90</span></code>, <code class="docutils literal notranslate"><span class="pre">ios_queue.F90</span></code> : modules comprising the IO server itself.</p></li>
+</ul>
+</section>
+</section>
+<section id="data-flow">
+<h1>Data flow<a class="headerlink" href="#data-flow" title="Link to this heading">#</a></h1>
+<p>The Fortran IO module acts as a switch-box. The IO server tasks maintain a thread (OpenMP thread 0, or <em>T_0</em>) that maximises its availability for listening for inbound protocol messages. Any received messages and associated data payload is appended to an FIFO queue. The queue is a linked list of a Fortran derived data type <code class="docutils literal notranslate"><span class="pre">IOS_node_type</span></code>. The maximum queue length is the sum of all payloads attached to nodes, and any buffers set aside for receiving asynchronous STASH/dump data. <em>T_0</em> will exit its listen loop if it receives a termination message from <em>R_0</em> after placing it in the FIFO. The second of the IO sever <em>T_1</em> monitors the FIFO queue for objects to process. <em>T_1</em> exits its execution loop when the head of the queue contains the termination command.</p>
+<p>Communication between <em>T_0</em> and <em>T_1</em> is via shared memory using a small number of scalar variables:</p>
+<ul class="simple">
+<li><p>The queue length</p></li>
+<li><p>The number of items in the queue</p></li>
+<li><p>Pointers to the head and tail of the queue.</p></li>
+</ul>
+<p>Correct flushing of such objects is critical to avoid deadlock situations. Extra threads, <em>T_n</em>, <em>n</em> &gt; 1 wait at the end of the main parallel section of <code class="docutils literal notranslate"><span class="pre">IOS_init()</span></code> until <em>T_0</em> and <em>T_1</em> have completed.</p>
+</section>
+<section id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">#</a></h1>
+<section id="general-requirements">
+<h2>General requirements<a class="headerlink" href="#general-requirements" title="Link to this heading">#</a></h2>
+<p>To use IO servers:</p>
+<ul class="simple">
+<li><p>The application should be compiled with OpenMP.</p></li>
+<li><p>The IO server should be configured to use at least two OpenMP threads. It should be possible to run the atmosphere model on any number of OpenMP threads.</p></li>
+<li><p>The environment variable <code class="docutils literal notranslate"><span class="pre">FLUME_IOS_NPROCS</span></code> should be set to the total number of processes designated to be used as IO Servers. This value is computed as the number of servers required, multiplied by the size of each server (<code class="docutils literal notranslate"><span class="pre">IOS_tasks_per_server</span></code>). The number of IO servers that provide benefit will range between one and ten, after which adding more uses more resources without any additional benefit.</p></li>
+</ul>
+</section>
+<section id="ioscntl-namelist">
+<h2><code class="docutils literal notranslate"><span class="pre">IOSCNTL</span></code> namelist<a class="headerlink" href="#ioscntl-namelist" title="Link to this heading">#</a></h2>
+<p>The IO server namelist <code class="docutils literal notranslate"><span class="pre">IOSCNTL</span></code> contains options for activation and configuration.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">IOS_Spacing</span></code> : Select the spacing of the IO servers. The servers are interleaved throughout the other processess with this periodicity.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IOS_tasks_per_server</span></code> : How many MPI tasks will be used for each IO server. The total number of tasks used by the IO Server subsystem is this multiplied by the number of servers. <strong>The parallelism specified must be the same or less that the decomposition of the atmospheric model in the north south direction.</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IOS_Offset</span></code> : The number of tasks to skip before starting allocating IO Server tasks with the specified periodicity. If possible, <strong>set this such that IO servers are not allocated to nodes which include polar rows, as these generally have high communication costs already.</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IOS_force_threading_mode</span></code> : Force the model to behave assuming the threading model you specify. For experts only, will cause errors if the MPI implementation doesn’t conform to that specified. Useful for users confident their MPI implementation misreports its capabilities.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IOS_buffer_size</span></code> : The maximum size (in MB) of the IO Sever’s FIFO queue. In general, bigger values will give improved performance, but take care not to oversubscribe the node’s total memory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IOS_concurrency_max_mem</span></code> : Maximum size (in MB) of the general purpose IO queue. Used only on <em>R_0</em>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IOS_concurrency</span></code> : Number of IO operations queued on a client (<em>R_0</em>). Large values allow tolerance of delays in the IO servers responding to messages (usually caused by waiting for locks on the MPI library). Increasing this value increases memory usage on <em>R_0</em>. If accelerated STASH/Dumps are <strong>not</strong> enabled, the overhead will be roughly the size of a model level multiplied by the concurrency.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IOS_backoff_interval</span></code> : The primary threads on the IO Servers use spin loops to wait for for work. Where threads share hardware resources (e.g. hyperthreading) the spin loop can slow down other threads. A larger polling interval makes checking the spin loops less aggressive, at the expense of latency (values is in microseconds)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IOS_timeout</span></code> : The value in seconds that the model will wait for a message to complete.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IOS_local_ro_files</span></code> : Because IO servers treat all operations in strict order opening, a read-only file on the IO server can result in waiting for other pending operations to complete. The user can instead opt for all read-only only files to be managed by <em>R_0</em>, bypassing IO servers.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IOS_Unit_Alloc_Policy</span></code> : Static choices result in a fixed assignment for the run, while dynamic choices allows some units to be remapped by rotating the target server, by querying servers and selecting a lightly loaded one.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IOS_rank_client_lb</span></code> : The atmospheric rank used for the load balancing using client info.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IOS_queue_drain_rate</span></code> : The assumed rate of data drain (MiB/s) from an I/O server queue.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IOS_Verbosity</span></code> : Sets an initial value for the level of printing output.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IOS_num_threads</span></code> : Number of threads used by the I/O server. This may be different from the number used by the atmosphere. If so, extreme care must be taken to avoid thread binding.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IOS_acquire_model_prsts</span></code> : Whether the above setting should be overridden by the general output specified for the main model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IOS_Interleave</span></code> : Whether the IO severs should be in sequential order or whether the tasks from different servers should interleave.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IOS_serialise_mpi_calls</span></code> : Ensures MPI calls are called simultaneously on different threads on the same task.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IOS_thread_0_calls_mpi</span></code> : Prohibits MPI calls on all threads except the first (<em>T_0</em>). <em>T_0</em> will proxy MPI calls needed by other threads.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IOS_RelayToSlaves</span></code> : Selects how <em>R_0</em> sends command and control, together with metadata, to the members of a parallel IO server. The</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Design</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#components">Components</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-flow">Data flow</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-requirements">General requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ioscntl-namelist"><code class="docutils literal notranslate"><span class="pre">IOSCNTL</span></code> namelist</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 21st Century Weather
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
