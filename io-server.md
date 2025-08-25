@@ -148,7 +148,7 @@ However, for the AUS2200 configuration running on the Sapphire Rapid nodes, the 
 ```
 ios_spacing=68
 ```
-Addittionally,
+Additionally,
 ```
 ios_tasks_per_server=8
 ```
