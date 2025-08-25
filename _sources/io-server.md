@@ -144,11 +144,11 @@ In our `suite.rc` files this is specified using
 The above link also suggests that
 > `ios_spacing` – it is recommended that no more than a single IO server PE should be placed on each node, on Cascade Lake nodes with 48 cores per node it is achieved with ios_spacing=48/OMP_NUM_THREADS
 
-However, for the AUS2200 configuration running on the Sapphire Rapid nodes, the following configuration was used when running a 68x68 decomposition using 96 threads per node and .
+However, for the AUS2200 configuration running on the Sapphire Rapid nodes, the following configuration was used when running a 68x68 decomposition using 96 threads per node and 
 ```
 ios_spacing=68
 ```
-Addittionally,
+Additionally,
 ```
 ios_tasks_per_server=8
 ```

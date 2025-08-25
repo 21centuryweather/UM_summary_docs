@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -544,11 +544,11 @@ Data is written in numeric order over the course of execution. <em>H</em> is wri
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">ios_spacing</span></code> – it is recommended that no more than a single IO server PE should be placed on each node, on Cascade Lake nodes with 48 cores per node it is achieved with ios_spacing=48/OMP_NUM_THREADS</p>
 </div></blockquote>
-<p>However, for the AUS2200 configuration running on the Sapphire Rapid nodes, the following configuration was used when running a 68x68 decomposition using 96 threads per node and .</p>
+<p>However, for the AUS2200 configuration running on the Sapphire Rapid nodes, the following configuration was used when running a 68x68 decomposition using 96 threads per node and</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ios_spacing</span><span class="o">=</span><span class="mi">68</span>
 </pre></div>
 </div>
-<p>Addittionally,</p>
+<p>Additionally,</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ios_tasks_per_server</span><span class="o">=</span><span class="mi">8</span>
 </pre></div>
 </div>
